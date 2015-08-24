@@ -21,7 +21,9 @@
 	</dependencies>
 	<modules>
 		<module>micro-service-server</module>
+		<module>micro-service-server2</module>
 		<module>micro-service-client</module>
 		<module>micro-service-common</module>
+		<module>micro-service-gateway</module>
 	</modules>
 </project>
