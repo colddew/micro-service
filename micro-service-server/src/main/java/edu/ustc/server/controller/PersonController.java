@@ -14,10 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.ustc.server.pojo.Person;
 import edu.ustc.server.service.PersonService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/person")
+@Api("人员信息相关操作")
 public class PersonController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
@@ -25,8 +31,10 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<Person> list() {
+	@RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
+	@ApiOperation(value="批量查询人员信息")
+	@ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
+	public List<Person> list() {
     	
     	logger.info("invoke list method...");
     	
@@ -34,14 +42,18 @@ public class PersonController {
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Person get(@PathVariable("id") Integer id) {
+    @ApiOperation(value="查询单个人员信息")
+    @ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
+    public Person get(@ApiParam(value = "人员id") @PathVariable("id") Integer id) {
 		
 		logger.info("invoke get method...");
 		
 		return personService.get(id);
     }
     
-    @RequestMapping(value = "/", method = RequestMethod.POST)
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.POST)
+    @ApiOperation(value="新增人员信息")
+    @ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
     public void add(@RequestBody Person person) {
 		
     	logger.info("invoke add method...");
@@ -50,7 +62,9 @@ public class PersonController {
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable("id") Integer id, @RequestBody Person personDto) {
+    @ApiOperation(value="修改人员信息")
+    @ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
+    public void update(@ApiParam(value = "人员id") @PathVariable("id") Integer id, @RequestBody Person personDto) {
     	
     	logger.info("invoke update method...");
     	
@@ -58,7 +72,9 @@ public class PersonController {
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable("id") Integer id) {
+    @ApiOperation(value="删除人员信息")
+    @ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
+    public void delete(@ApiParam(value = "人员id") @PathVariable("id") Integer id) {
     	
     	logger.info("invoke delete method...");
     	
