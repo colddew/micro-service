@@ -10,10 +10,8 @@
 	</parent>
 	
 	<artifactId>micro-service-server</artifactId>
-	<packaging>war</packaging>
-	
-	<dependencies>
 		
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

@@ -10,8 +10,7 @@
 	</parent>
 	
 	<artifactId>micro-service-gateway</artifactId>
-	<packaging>war</packaging>
-	
+		
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
