@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.ustc.server.mapper.ClassesMapper">
+	
 	<resultMap id="BaseResultMap" type="edu.ustc.server.pojo.Classes">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="grade" property="grade" jdbcType="VARCHAR" />
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		id, grade
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	
+	<sql id="Base_Query_Condition">
+		<where>
+			<if test="id != null">
+				id = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="grade != null">
+				AND grade = #{grade,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+	
+	<insert id="insert" parameterType="edu.ustc.server.pojo.Classes" useGeneratedKeys="true" keyProperty="id">
+		insert into classes (id, grade)
+		values (#{id,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from classes
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from classes
-		where id = #{id,jdbcType=INTEGER}
-	</delete>
-	<insert id="insert" parameterType="edu.ustc.server.pojo.Classes">
-		insert into classes (id, grade)
-		values (#{id,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR})
-	</insert>
-	<insert id="insertSelective" parameterType="edu.ustc.server.pojo.Classes">
-		insert into classes
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="grade != null">
-				grade,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="grade != null">
-				#{grade,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="edu.ustc.server.pojo.Classes">
+	
+	<select id="list" resultMap="BaseResultMap" parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from classes
+		<include refid="Base_Query_Condition" />
+	</select>
+	
+	<update id="update" parameterType="edu.ustc.server.pojo.Classes">
 		update classes
 		<set>
 			<if test="grade != null">
@@ -51,9 +50,9 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="edu.ustc.server.pojo.Classes">
-		update classes
-		set grade = #{grade,jdbcType=VARCHAR}
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from classes
 		where id = #{id,jdbcType=INTEGER}
-	</update>
+	</delete>
 </mapper>

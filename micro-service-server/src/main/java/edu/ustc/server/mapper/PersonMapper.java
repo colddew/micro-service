@@ -7,13 +7,13 @@ import edu.ustc.server.pojo.Person;
 
 public interface PersonMapper {
 	
-	int insert(Person record);
+	int insert(Person person);
     
     Person selectById(Integer id);
     
     List<Person> list(Map<String, Object> params);
     
-    int update(Person record);
+    int update(Person person);
     
     int delete(Integer id);
 }
