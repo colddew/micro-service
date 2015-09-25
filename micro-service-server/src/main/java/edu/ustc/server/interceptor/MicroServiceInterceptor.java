@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class ServiceMonitor {
+public class MicroServiceInterceptor {
 	
 	@Pointcut("execution(* edu.ustc.server.controller..*Controller.*(..))")
 	public void microController() {
