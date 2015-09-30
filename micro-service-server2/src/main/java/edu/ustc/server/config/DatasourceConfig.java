@@ -22,6 +22,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 @Configuration
@@ -43,9 +44,13 @@ public class DatasourceConfig {
         }
         dbProperties.putAll(map);
         
-        DataSource dataSource = null;
+        DruidDataSource dataSource = null;
         try {
-        	dataSource = DruidDataSourceFactory.createDataSource(dbProperties);
+        	dataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(dbProperties);
+        	if(null != dataSource) {
+        		dataSource.setFilters("wall,stat");
+        		dataSource.init();
+        	}
         } catch (Exception e) {
         	throw new RuntimeException("load datasource error, dbProperties is :" + dbProperties, e);
         }
