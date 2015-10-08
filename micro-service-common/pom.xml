@@ -11,9 +11,6 @@
 	
 	<artifactId>micro-service-common</artifactId>
 	
-	<dependencies>
-	</dependencies>
-	
 	<build>
 		<finalName>micro-service-common</finalName>
 	</build>

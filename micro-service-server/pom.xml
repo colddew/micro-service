@@ -10,7 +10,7 @@
 	</parent>
 	
 	<artifactId>micro-service-server</artifactId>
-		
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -52,6 +52,11 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
+        
+        <dependency>
+			<groupId>com.squareup.retrofit</groupId>
+			<artifactId>retrofit</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<build>

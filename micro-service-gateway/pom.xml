@@ -13,8 +13,33 @@
 		
 	<dependencies>
 		<dependency>
+			<groupId>edu.ustc</groupId>
+			<artifactId>micro-service-server</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ustc</groupId>
+			<artifactId>micro-service-server2</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		
+		<dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+        
+        <dependency>
+			<groupId>com.squareup.retrofit</groupId>
+			<artifactId>retrofit</artifactId>
 		</dependency>
 	</dependencies>
 	
