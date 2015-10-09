@@ -6,11 +6,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.ustc.server.mapper.PersonMapper;
 import edu.ustc.server.pojo.Person;
 
 @Service
+@Transactional
 public class PersonService {
 	
 	@Autowired

@@ -99,7 +99,7 @@
         </layout>
     </appender>
 	
-    <root level="info">
+    <root level="DEBUG">
         <appender-ref ref="stdout"/>
         <appender-ref ref="debugLogFile"/>
         <appender-ref ref="infoLogFile"/>
@@ -109,6 +109,8 @@
 	
     <logger name="com.ibatis" level="DEBUG"/>
     <logger name="java.sql" level="DEBUG"/>
+    
+    <logger name="org.springframework" level="INFO"/>
     
     <!-- sends logs to logback-beagle -->
   	<consolePlugin />

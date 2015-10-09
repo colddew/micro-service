@@ -1,10 +1,14 @@
 package edu.ustc.server.pojo;
 
+import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("人员信息")
-public class Person {
+public class Person implements Serializable {
+	
+	private static final long serialVersionUID = 4379146960917025627L;
 	
 	@ApiModelProperty(value = "人员id")
 	private Integer id;
