@@ -52,9 +52,10 @@ public class MicroService {
 		
 		Person personDto = new Person();
 		personDto.setId(6);
+		personDto.setPid(6);
 		personDto.setName("test6");
 		personDto.setAge(60);
-		personClientApi.update(personDto.getId(), personDto);
+		personClientApi.update(personDto.getPid(), personDto);
 		
 		System.out.println("########################");
 		
