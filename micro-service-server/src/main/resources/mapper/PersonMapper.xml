@@ -6,18 +6,22 @@
 	
 	<resultMap id="BaseResultMap" type="edu.ustc.server.pojo.Person">
 		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pid" property="pid" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="age" property="age" jdbcType="INTEGER" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		id, name, age
+		id, pid, name, age
 	</sql>
 	
 	<sql id="Base_Query_Condition">
 		<where>
 			<if test="id != null">
 				id = #{id,jdbcType=INTEGER}
+			</if>
+			<if test="pid != null">
+				pid = #{pid,jdbcType=INTEGER}
 			</if>
 			<if test="name != null">
 				AND name = #{name,jdbcType=VARCHAR}
@@ -29,15 +33,15 @@
 	</sql>
 	
 	<insert id="insert" parameterType="edu.ustc.server.pojo.Person" useGeneratedKeys="true" keyProperty="id">
-		insert into person (name, age) 
-		values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
+		insert into person (pid, name, age) 
+		values (#{pid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
 	</insert>
 	
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from person
-		where id = #{id,jdbcType=INTEGER}
+		where pid = #{pid,jdbcType=INTEGER}
 	</select>
 	
 	<select id="list" resultMap="BaseResultMap" parameterType="hashmap">
@@ -57,11 +61,11 @@
 				age = #{age,jdbcType=INTEGER},
 			</if>
 		</set>
-		where id = #{id,jdbcType=INTEGER}
+		where pid = #{pid,jdbcType=INTEGER}
 	</update>
 	
 	<delete id="delete" parameterType="java.lang.Integer">
 		delete from person
-		where id = #{id,jdbcType=INTEGER}
+		where pid = #{pid,jdbcType=INTEGER}
 	</delete>
 </mapper>

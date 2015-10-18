@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.google.code.shardbatis.plugin.ShardPlugin;
 
 @Configuration
 @EnableTransactionManagement
@@ -49,7 +51,7 @@ public class DatasourceConfig {
         	dataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(dbProperties);
         	if(null != dataSource) {
         		dataSource.setFilters("wall,stat");
-        		dataSource.setTimeBetweenLogStatsMillis(5000);
+//        		dataSource.setTimeBetweenLogStatsMillis(5000);
         		dataSource.init();
         	}
         } catch (Exception e) {
@@ -86,10 +88,22 @@ public class DatasourceConfig {
             final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
             sessionFactory.setDataSource(dataSource);
             sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*Mapper.xml"));
+            sessionFactory.setPlugins(new Interceptor[] { getShardPlugin() });
             
             return sessionFactory.getObject();
         } catch (Exception e) {
         	throw new RuntimeException("sqlSessionFactory configuration error", e);
         }
+    }
+    
+    private Interceptor getShardPlugin() {
+    	
+    	Properties properties = new Properties();
+    	properties.setProperty("shardingConfig", "shardConfig.xml");
+    	
+    	ShardPlugin shardPlugin = new ShardPlugin();
+    	shardPlugin.setProperties(properties);
+    	
+    	return shardPlugin;
     }
 }

@@ -25,24 +25,24 @@ public class PersonService {
 		return personMapper.list(params);
 	}
 	
-	public Person get(Integer id) {
-		return personMapper.selectById(id);
+	public Person get(Integer pid) {
+		return personMapper.selectById(pid);
 	}
 	
 	public void add(Person person) {
 		personMapper.insert(person);
 	}
 	
-	public void update(Integer id, Person personDto) {
+	public void update(Integer pid, Person personDto) {
 		
-		Person person = get(id);
+		Person person = get(pid);
 		person.setName(personDto.getName());
 		person.setAge(personDto.getAge());
 		
 		personMapper.update(person);
 	}
 	
-	public void delete(Integer id) {
-		personMapper.delete(id);
+	public void delete(Integer pid) {
+		personMapper.delete(pid);
 	}
 }

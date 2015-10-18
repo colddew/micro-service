@@ -41,14 +41,14 @@ public class PersonController {
         return personService.list();
     }
     
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{pid}", method = RequestMethod.GET)
     @ApiOperation(value="查询单个人员信息")
     @ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
-    public Person get(@ApiParam(value = "人员id") @PathVariable("id") Integer id) {
+    public Person get(@ApiParam(value = "人员id") @PathVariable("pid") Integer pid) {
 		
 		logger.info("invoke get method...");
 		
-		return personService.get(id);
+		return personService.get(pid);
     }
     
     @RequestMapping(value = {"/", ""}, method = RequestMethod.POST)
@@ -61,23 +61,23 @@ public class PersonController {
     	personService.add(person);
     }
     
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{pid}", method = RequestMethod.PUT)
     @ApiOperation(value="修改人员信息")
     @ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
-    public void update(@ApiParam(value = "人员id") @PathVariable("id") Integer id, @RequestBody Person personDto) {
+    public void update(@ApiParam(value = "人员id") @PathVariable("pid") Integer pid, @RequestBody Person personDto) {
     	
     	logger.info("invoke update method...");
     	
-    	personService.update(id, personDto);
+    	personService.update(pid, personDto);
     }
     
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{pid}", method = RequestMethod.DELETE)
     @ApiOperation(value="删除人员信息")
     @ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
-    public void delete(@ApiParam(value = "人员id") @PathVariable("id") Integer id) {
+    public void delete(@ApiParam(value = "人员id") @PathVariable("pid") Integer pid) {
     	
     	logger.info("invoke delete method...");
     	
-    	personService.delete(id);
+    	personService.delete(pid);
     }
 }

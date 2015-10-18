@@ -10,8 +10,11 @@ public class Person implements Serializable {
 	
 	private static final long serialVersionUID = 4379146960917025627L;
 	
-	@ApiModelProperty(value = "人员id")
+	@ApiModelProperty(value = "主键id")
 	private Integer id;
+	
+	@ApiModelProperty(value = "人员id")
+	private Integer pid;
 	
 	@ApiModelProperty(value = "姓名")
 	private String name;
@@ -25,6 +28,14 @@ public class Person implements Serializable {
 	
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Integer getPid() {
+		return pid;
+	}
+	
+	public void setPid(Integer pid) {
+		this.pid = pid;
 	}
 	
 	public String getName() {
