@@ -21,7 +21,7 @@
 				id = #{id,jdbcType=INTEGER}
 			</if>
 			<if test="pid != null">
-				pid = #{pid,jdbcType=INTEGER}
+				AND pid = #{pid,jdbcType=INTEGER}
 			</if>
 			<if test="name != null">
 				AND name = #{name,jdbcType=VARCHAR}

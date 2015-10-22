@@ -1,17 +1,21 @@
 package edu.ustc.server.cache;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import redis.clients.jedis.JedisCluster;
 
 @Service
+@EnableScheduling
 public class RedisService {
 	
-	private static final JedisCluster redis = RedisCluster.getJedisCluster();
+	@Autowired
+	private JedisCluster jedisCluster;
 	
-	public static void main(String[] args) {
-		System.out.println(redis);
-		System.out.println(redis);
-		System.out.println(redis);
+	@Scheduled(fixedDelay = 2000)
+	public void print() {
+		System.out.println(jedisCluster);
 	}
 }
