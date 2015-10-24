@@ -12,7 +12,7 @@ public class Sender {
 	private RabbitTemplate rabbitTemplate;
 	
 //	@Scheduled(cron = "0/2 * *  * * ? ")
-	@Scheduled(fixedDelay = 2000)
+	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void send() {
 		rabbitTemplate.convertAndSend(QUEUE_NAME, "hello rabbitmq...");
 	}
