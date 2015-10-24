@@ -1,13 +1,12 @@
 package edu.ustc.server.utils;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
@@ -22,7 +21,7 @@ public class OkHttpUtils {
 	public static final long CONNECT_TIMEOUT = 15;
 	public static final long READ_TIMEOUT = 15;
 	
-	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+	public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 	
 	private static final OkHttpClient okHttpClient = new OkHttpClient();
 	
@@ -79,7 +78,7 @@ public class OkHttpUtils {
 	
 	public static String synPostJson(String url, String json) throws Exception {
 		
-		RequestBody body = RequestBody.create(JSON, json);
+		RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, json);
 		Request request = new Request.Builder().url(url).post(body).build();
 		
 		Response response = execute(request);
@@ -108,9 +107,8 @@ public class OkHttpUtils {
 		FormEncodingBuilder formEncodingBuilder = new FormEncodingBuilder();
 		
 		Set<Entry<String, String>> set = json.entrySet();
-		for (Iterator<Entry<String, String>> it = set.iterator(); it.hasNext();) {
-			Entry<String, String> entry = (Entry<String, String>) it.next();
-			if(!StringUtils.isEmpty(entry.getKey())) {
+		if(!CollectionUtils.isEmpty(set)) {
+			for(Entry<String, String> entry : set) {
 				formEncodingBuilder.add(entry.getKey(), entry.getValue());
 			}
 		}
@@ -118,9 +116,15 @@ public class OkHttpUtils {
 		return formEncodingBuilder;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) throws Exception {
 		
-//		System.out.println(OkHttpUtils.synGetString("http://localhost:9001/person/1"));
+//		String person = OkHttpUtils.synGetString("http://localhost:9001/person/1");
+//		System.out.println(person);
+//		
+//		Map map = JSON.parseObject(person, Map.class);
+//		System.out.println(map);
+//		System.out.println(JSON.toJSONString(map));
 		
 //		OkHttpUtils.asynDefaultGet("http://localhost:9001/person/1");
 		

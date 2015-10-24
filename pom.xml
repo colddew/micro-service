@@ -22,6 +22,7 @@
 		<springfox.version>2.2.2</springfox.version>
 		<retrofit.version>1.9.0</retrofit.version>
 		<okhttp.version>2.5.0</okhttp.version>
+		<fastjson.version>1.2.7</fastjson.version>
 		<shardbatis.version>2.0.0B</shardbatis.version>
 	</properties>
 	
@@ -69,6 +70,12 @@
 				<groupId>com.squareup.okhttp</groupId>
 				<artifactId>okhttp</artifactId>
 				<version>${okhttp.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
 			</dependency>
 			
 			<dependency>
