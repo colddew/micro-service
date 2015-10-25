@@ -19,11 +19,11 @@ public class PersonService {
 	@Autowired
 	private PersonMapper personMapper;
 	
-	@Value("${person.register.pre.day:60000}")
-	private String preDayRegisterQuantity;
+	@Value("${person.register.pre.day:600}")
+	private int preDayRegisterQuantity;
 	
-	@Value("${person.register.total:2000000000}")
-	private String totalRegisterQuantity;
+	@Value("${person.register.total:20000}")
+	private int totalRegisterQuantity;
 	
 	public List<Person> list() {
 		
