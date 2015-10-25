@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,12 @@ public class PersonService {
 	@Autowired
 	private PersonMapper personMapper;
 	
+	@Value("${person.register.pre.day:60000}")
+	private String preDayRegisterQuantity;
+	
+	@Value("${person.register.total:2000000000}")
+	private String totalRegisterQuantity;
+	
 	public List<Person> list() {
 		
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -26,6 +33,10 @@ public class PersonService {
 	}
 	
 	public Person get(Integer pid) {
+		
+		System.out.println("person.register.pre.day:" + preDayRegisterQuantity);
+		System.out.println("person.register.total:" + totalRegisterQuantity);
+		
 		return personMapper.selectById(pid);
 	}
 	

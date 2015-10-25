@@ -116,18 +116,17 @@ public class OkHttpUtils {
 		return formEncodingBuilder;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public static void main(String[] args) throws Exception {
-		
+//	public static void main(String[] args) throws Exception {
+//		
 //		String person = OkHttpUtils.synGetString("http://localhost:9001/person/1");
 //		System.out.println(person);
 //		
 //		Map map = JSON.parseObject(person, Map.class);
 //		System.out.println(map);
 //		System.out.println(JSON.toJSONString(map));
-		
+//		
 //		OkHttpUtils.asynDefaultGet("http://localhost:9001/person/1");
-		
+//		
 //		OkHttpUtils.asynGet("http://localhost:9001/person/1", new Callback() {
 //			
 //			@Override
@@ -142,10 +141,10 @@ public class OkHttpUtils {
 //				
 //			}
 //		});
-		
+//		
 //		String json = "{\"pid\":23,\"name\":\"test\",\"age\":20}";
 //		System.out.println(synPostJson("http://localhost:9001/person", json));
-		
+//		
 //		@SuppressWarnings("serial")
 //		Map<String, String> json = new HashMap<String, String>() {
 //			{
@@ -155,5 +154,5 @@ public class OkHttpUtils {
 //			}
 //		};
 //		System.out.println(synPostForm("http://localhost:9001/person", json));
-	}
+//	}
 }
