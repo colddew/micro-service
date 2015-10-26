@@ -32,6 +32,9 @@ import com.google.code.shardbatis.plugin.ShardPlugin;
 @MapperScan(basePackages = "edu.ustc.server.mapper", sqlSessionFactoryRef = "sqlSessionFactory")
 public class DatasourceConfig {
 	
+	private static final String MYSQL_PREFIX = "mysql.";
+	private static final String DRUID_PREFIX = "druid.";
+	
     @Autowired
     private Environment env;
     
@@ -65,7 +68,11 @@ public class DatasourceConfig {
     	
         if (propertySource instanceof MapPropertySource) {
             for (String key : ((MapPropertySource) propertySource).getPropertyNames()) {
-                map.put(key, propertySource.getProperty(key));
+            	if (key.startsWith(MYSQL_PREFIX)) {
+					map.put(key.replaceFirst(MYSQL_PREFIX, ""), propertySource.getProperty(key));
+				} else if (key.startsWith(DRUID_PREFIX)) {
+					map.put(key.replaceFirst(DRUID_PREFIX, ""), propertySource.getProperty(key));
+				}
             }
         }
         
