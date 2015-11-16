@@ -2,6 +2,8 @@ package edu.ustc.server.pojo;
 
 import java.io.Serializable;
 
+import com.alibaba.fastjson.JSON;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -30,5 +32,10 @@ public class Classes implements Serializable {
 	
 	public void setGrade(String grade) {
 		this.grade = grade;
+	}
+	
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
 	}
 }
