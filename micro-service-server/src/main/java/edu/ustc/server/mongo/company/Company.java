@@ -10,15 +10,17 @@ public class Company {
 	
 	private String name;
 	private String address;
+	private int headcount;
 	
 	public Company() {
 		
 	}
 	
-	public Company(String id, String name, String address) {
+	public Company(String id, String name, String address, int headcount) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
+		this.headcount = headcount;
 	}
 	
 	public String getId() {
@@ -45,6 +47,14 @@ public class Company {
 		this.address = address;
 	}
 	
+	public int getHeadcount() {
+		return headcount;
+	}
+
+	public void setHeadcount(int headcount) {
+		this.headcount = headcount;
+	}
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
