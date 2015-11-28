@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import edu.ustc.server.mongo.company.Company;
+import edu.ustc.server.mongo.company.Company.Status;
 import edu.ustc.server.mongo.company.CompanyRepository;
 
 @Service
@@ -22,6 +23,8 @@ public class CompanyService {
 		Company company = new Company();
 		company.setName(companyDto.getName());
 		company.setAddress(companyDto.getAddress());
+		company.setHeadcount(companyDto.getHeadcount());
+		company.setStatus(Status.OPEN);
 		
 		Company result = companyRepository.save(company);
 		
@@ -53,7 +56,7 @@ public class CompanyService {
 		
 		System.out.println("Count: " + companyRepository.count());
 		
-		Pageable pageable = new PageRequest(2, 2);
+		Pageable pageable = new PageRequest(0, 2);
 		Page<Company> page = companyRepository.findAll(pageable);
 		System.out.println("Page: " + page);
 		System.out.println("Number: " + page.getNumber());
@@ -65,6 +68,9 @@ public class CompanyService {
 		
 		System.out.println("Headcount count: " + companyRepository.countByHeadcount(5));
 		System.out.println("Headcount list: " + companyRepository.findByHeadcount(5));
+		
+		page = companyRepository.findByHeadcountAndStatus(3, Status.OPEN, pageable);
+		System.out.println("Page: " + page);
 	}
 	
 	public Company findById(String id) {

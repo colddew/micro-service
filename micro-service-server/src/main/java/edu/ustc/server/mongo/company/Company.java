@@ -11,6 +11,7 @@ public class Company {
 	private String name;
 	private String address;
 	private int headcount;
+	private Status status;
 	
 	public Company() {
 		
@@ -50,13 +51,25 @@ public class Company {
 	public int getHeadcount() {
 		return headcount;
 	}
-
+	
 	public void setHeadcount(int headcount) {
 		this.headcount = headcount;
 	}
-
+	
+	public Status getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
+	}
+	
+	public enum Status {
+		OPEN, CLOSE;
 	}
 }
