@@ -2,6 +2,8 @@ package edu.ustc.server.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +56,7 @@ public class PersonController {
     @RequestMapping(value = {"/", ""}, method = RequestMethod.POST)
     @ApiOperation(value="新增人员信息")
     @ApiResponses(value = { @ApiResponse(code = 401, message = "请求未通过认证") })
-    public void add(@RequestBody Person person) {
+    public void add(@Valid @RequestBody Person person) {
 		
     	logger.info("invoke add method...");
     	

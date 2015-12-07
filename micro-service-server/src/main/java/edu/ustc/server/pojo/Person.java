@@ -2,6 +2,10 @@ package edu.ustc.server.pojo;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -14,12 +18,15 @@ public class Person implements Serializable {
 	private Integer id;
 	
 	@ApiModelProperty(value = "人员id")
+	@NotNull(message = "人员id不能为空")
 	private Integer pid;
 	
 	@ApiModelProperty(value = "姓名")
+	@NotBlank(message = "姓名不能为空")
 	private String name;
 	
 	@ApiModelProperty(value = "年龄")
+	@NotNull(message = "年龄不能为空")
 	private Integer age;
 	
 	public Integer getId() {
