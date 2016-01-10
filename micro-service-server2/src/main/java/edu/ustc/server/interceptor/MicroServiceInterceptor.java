@@ -18,9 +18,9 @@ public class MicroServiceInterceptor {
 	@Around("microController()")
 	public Object around(ProceedingJoinPoint point) throws Throwable {
 		
-		System.out.println("doing before pointcut...");
+		System.out.println("doing before MicroServiceInterceptor pointcut...");
 		Object object = point.proceed();
-		System.out.println("doing after pointcut...");
+		System.out.println("doing after MicroServiceInterceptor pointcut...");
 		
 		return object;
 	}
