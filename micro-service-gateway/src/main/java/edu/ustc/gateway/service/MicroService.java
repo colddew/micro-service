@@ -66,7 +66,7 @@ public class MicroService {
 	}
 	
 	public static void main(String[] args) {
-//		MicroService.list();
-		MicroService.update();
+		MicroService.list();
+//		MicroService.update();
 	}
 }
