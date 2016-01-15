@@ -26,6 +26,7 @@
 		<fastjson.version>1.2.7</fastjson.version>
 		<shardbatis.version>2.0.0B</shardbatis.version>
 		<hystrix.version>1.4.22</hystrix.version>
+		<jedis.version>2.6.2</jedis.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -100,6 +101,12 @@
 				<groupId>com.netflix.hystrix</groupId>
 				<artifactId>hystrix-metrics-event-stream</artifactId>
 				<version>${hystrix.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>redis.clients</groupId>
+			    <artifactId>jedis</artifactId>
+			    <version>${jedis.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

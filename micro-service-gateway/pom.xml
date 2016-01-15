@@ -10,7 +10,7 @@
 	</parent>
 	
 	<artifactId>micro-service-gateway</artifactId>
-		
+	
 	<dependencies>
 		<dependency>
 			<groupId>edu.ustc</groupId>
