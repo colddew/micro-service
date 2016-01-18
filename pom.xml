@@ -27,6 +27,7 @@
 		<shardbatis.version>2.0.0B</shardbatis.version>
 		<hystrix.version>1.4.22</hystrix.version>
 		<jedis.version>2.6.2</jedis.version>
+		<kafka.version>0.8.2.0</kafka.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -107,6 +108,12 @@
 			    <groupId>redis.clients</groupId>
 			    <artifactId>jedis</artifactId>
 			    <version>${jedis.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.kafka</groupId>
+				<artifactId>kafka_2.10</artifactId>
+				<version>${kafka.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
