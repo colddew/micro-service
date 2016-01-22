@@ -123,6 +123,6 @@
 		<module>micro-service-server2</module>
 		<module>micro-service-common</module>
 		<module>micro-service-gateway</module>
-    <module>micro-service-task2</module>
+		<module>micro-service-task2</module>
   </modules>
 </project>
