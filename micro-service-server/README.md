@@ -1,0 +1,2 @@
+# micro-service-server
+add another application-dev.properties file to resources directory, and start application with the following command, mvn spring-boot:run -Dserver.port=9001 -Dspring.profiles.active=dev
