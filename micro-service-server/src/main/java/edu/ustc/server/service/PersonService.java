@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.ustc.server.config.DynamicConfig;
 import edu.ustc.server.mapper.PersonMapper;
 import edu.ustc.server.pojo.Person;
 
@@ -19,11 +20,22 @@ public class PersonService {
 	@Autowired
 	private PersonMapper personMapper;
 	
+	@Autowired
+	private DynamicConfig dynamicConfig;
+	
 	@Value("${person.register.pre.day:600}")
 	private int preDayRegisterQuantity;
 	
 	@Value("${person.register.total:20000}")
 	private int totalRegisterQuantity;
+	
+	public Integer getPreDayRegisterQuantity() {
+		return dynamicConfig.getPreDayRegisterQuantity();
+	}
+	
+	public Integer getTotalRegisterQuantity() {
+		return dynamicConfig.getTotalRegisterQuantity();
+	}
 	
 	public List<Person> list() {
 		
@@ -34,8 +46,10 @@ public class PersonService {
 	
 	public Person get(Integer pid) {
 		
-		System.out.println("person.register.pre.day:" + preDayRegisterQuantity);
-		System.out.println("person.register.total:" + totalRegisterQuantity);
+		System.out.println("person.register.pre.day:fix:" + preDayRegisterQuantity);
+		System.out.println("person.register.pre.day:dynamic:" + getPreDayRegisterQuantity());
+		System.out.println("person.register.total:fix:" + totalRegisterQuantity);
+		System.out.println("person.register.total:dynamic:" + getTotalRegisterQuantity());
 		
 		return personMapper.selectById(pid);
 	}

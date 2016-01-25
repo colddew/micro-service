@@ -36,14 +36,14 @@ public class DatasourceConfig {
 	private static final String DRUID_PREFIX = "druid.";
 	
     @Autowired
-    private Environment env;
+    private Environment environment;
     
     @Bean
     public DataSource dataSource() {
     	
         Properties dbProperties = new Properties();
         Map<String, Object> map = new HashMap<String, Object>();
-        for (Iterator<PropertySource<?>> it = ((AbstractEnvironment) env).getPropertySources().iterator(); it.hasNext();) {
+        for (Iterator<PropertySource<?>> it = ((AbstractEnvironment) environment).getPropertySources().iterator(); it.hasNext();) {
             PropertySource<?> propertySource = it.next();
             getPropertiesFromSource(propertySource, map);
         }
