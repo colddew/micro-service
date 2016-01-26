@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.netflix.config.ConfigurationManager;
+import com.netflix.config.DynamicPropertyFactory;
+
 import edu.ustc.server.config.DynamicConfig;
 import edu.ustc.server.mapper.PersonMapper;
 import edu.ustc.server.pojo.Person;
@@ -48,8 +51,13 @@ public class PersonService {
 		
 		System.out.println("person.register.pre.day:fix:" + preDayRegisterQuantity);
 		System.out.println("person.register.pre.day:dynamic:" + getPreDayRegisterQuantity());
+		System.out.println("person.register.pre.day:netflix:" + ConfigurationManager.getConfigInstance().getInteger("person.register.pre.day", 600));
+		System.out.println("person.register.pre.day:netflix:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.pre.day", 600).get());
+		
 		System.out.println("person.register.total:fix:" + totalRegisterQuantity);
 		System.out.println("person.register.total:dynamic:" + getTotalRegisterQuantity());
+		System.out.println("person.register.pre.day:netflix:" + ConfigurationManager.getConfigInstance().getInteger("person.register.total", 20000));
+		System.out.println("person.register.pre.day:netflix:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.total", 20000).get());
 		
 		return personMapper.selectById(pid);
 	}
