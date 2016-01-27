@@ -3,7 +3,11 @@ package edu.ustc.server.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,11 +24,16 @@ import edu.ustc.server.pojo.Person;
 @Transactional
 public class PersonService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(PersonService.class);
+	
 	@Autowired
 	private PersonMapper personMapper;
 	
 	@Autowired
 	private DynamicConfig dynamicConfig;
+	
+	@Autowired
+	private RedisService redisService;
 	
 	@Value("${person.register.pre.day:600}")
 	private int preDayRegisterQuantity;
@@ -49,17 +58,40 @@ public class PersonService {
 	
 	public Person get(Integer pid) {
 		
-		System.out.println("person.register.pre.day:fix:" + preDayRegisterQuantity);
-		System.out.println("person.register.pre.day:dynamic:" + getPreDayRegisterQuantity());
-		System.out.println("person.register.pre.day:netflix:" + ConfigurationManager.getConfigInstance().getInteger("person.register.pre.day", 600));
-		System.out.println("person.register.pre.day:netflix:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.pre.day", 600).get());
-		
-		System.out.println("person.register.total:fix:" + totalRegisterQuantity);
-		System.out.println("person.register.total:dynamic:" + getTotalRegisterQuantity());
-		System.out.println("person.register.pre.day:netflix:" + ConfigurationManager.getConfigInstance().getInteger("person.register.total", 20000));
-		System.out.println("person.register.pre.day:netflix:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.total", 20000).get());
+		loadConfig();
+		concurrentLock();
 		
 		return personMapper.selectById(pid);
+	}
+	
+	private void loadConfig() {
+		
+		logger.info("person.register.pre.day:fix:" + preDayRegisterQuantity);
+		logger.info("person.register.pre.day:dynamic:" + getPreDayRegisterQuantity());
+		logger.info("person.register.pre.day:netflix:" + ConfigurationManager.getConfigInstance().getInteger("person.register.pre.day", 600));
+		logger.info("person.register.pre.day:netflix:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.pre.day", 600).get());
+		
+		logger.info("person.register.total:fix:" + totalRegisterQuantity);
+		logger.info("person.register.total:dynamic:" + getTotalRegisterQuantity());
+		logger.info("person.register.pre.day:netflix:" + ConfigurationManager.getConfigInstance().getInteger("person.register.total", 20000));
+		logger.info("person.register.pre.day:netflix:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.total", 20000).get());
+		
+		logger.info("concurrent.quantity" + ConfigurationManager.getConfigInstance().getInteger("concurrent.quantity", 10));
+	}
+	
+	private void concurrentLock() {
+		
+		ExecutorService service = Executors.newFixedThreadPool(ConfigurationManager.getConfigInstance().getInteger("concurrent.quantity", 10));
+		service.submit(new Runnable() {
+			@Override
+			public void run() {
+				if(redisService.lockUpdateOperation("123456")) {
+					logger.info("##### first time locked #####");
+				} else {
+					logger.info("##### already locked #####");
+				}
+			}
+		});
 	}
 	
 	public void add(Person person) {

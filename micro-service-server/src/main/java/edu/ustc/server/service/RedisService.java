@@ -18,4 +18,14 @@ public class RedisService {
 	public void print() {
 		System.out.println(jedisCluster);
 	}
+	
+	public boolean lockUpdateOperation(String id) {
+		
+		if(1 == jedisCluster.setnx(id, "")) {
+			jedisCluster.expire(id, 60 * 1);
+			return true;
+		}
+		
+		return false;
+	}
 }

@@ -2,6 +2,8 @@ package edu.ustc.server.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,8 @@ import edu.ustc.server.mongo.company.CompanyRepository;
 
 @Service
 public class CompanyService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CompanyService.class);
 	
 	@Autowired
 	private CompanyRepository companyRepository;
@@ -58,19 +62,19 @@ public class CompanyService {
 		
 		Pageable pageable = new PageRequest(0, 2);
 		Page<Company> page = companyRepository.findAll(pageable);
-		System.out.println("Page: " + page);
-		System.out.println("Number: " + page.getNumber());
-		System.out.println("NumberOfElements: " + page.getNumberOfElements());
-		System.out.println("Size: " + page.getSize());
-		System.out.println("TotalElements: " + page.getTotalElements());
-		System.out.println("TotalPages: " + page.getTotalPages());
-		System.out.println("Content: " + page.getContent());
+		logger.info("Page: " + page);
+		logger.info("Number: " + page.getNumber());
+		logger.info("NumberOfElements: " + page.getNumberOfElements());
+		logger.info("Size: " + page.getSize());
+		logger.info("TotalElements: " + page.getTotalElements());
+		logger.info("TotalPages: " + page.getTotalPages());
+		logger.info("Content: " + page.getContent());
 		
-		System.out.println("Headcount count: " + companyRepository.countByHeadcount(5));
-		System.out.println("Headcount list: " + companyRepository.findByHeadcount(5));
+		logger.info("Headcount count: " + companyRepository.countByHeadcount(5));
+		logger.info("Headcount list: " + companyRepository.findByHeadcount(5));
 		
 		page = companyRepository.findByHeadcountAndStatus(3, Status.OPEN, pageable);
-		System.out.println("Page: " + page);
+		logger.info("Page: " + page);
 	}
 	
 	public Company findById(String id) {
