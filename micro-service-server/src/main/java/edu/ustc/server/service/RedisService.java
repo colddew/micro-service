@@ -1,5 +1,7 @@
 package edu.ustc.server.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,18 +13,22 @@ import redis.clients.jedis.JedisCluster;
 @EnableScheduling
 public class RedisService {
 	
+	private static final Logger logger = LoggerFactory.getLogger(RedisService.class);
+	
 	@Autowired
 	private JedisCluster jedisCluster;
 	
 	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void print() {
-		System.out.println(jedisCluster);
+		logger.info(jedisCluster.info());
+		logger.info(jedisCluster.ping());
 	}
 	
 	public boolean lockUpdateOperation(String id) {
 		
-		if(1 == jedisCluster.setnx(id, "")) {
-			jedisCluster.expire(id, 60 * 1);
+		Long setnx = jedisCluster.setnx(id, "");
+		if (1 == setnx) {
+			jedisCluster.expire(id, 60);
 			return true;
 		}
 		

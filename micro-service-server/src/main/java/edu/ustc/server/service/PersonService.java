@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,17 +82,36 @@ public class PersonService {
 	
 	private void concurrentLock() {
 		
-		ExecutorService service = Executors.newFixedThreadPool(ConfigurationManager.getConfigInstance().getInteger("concurrent.quantity", 10));
-		service.submit(new Runnable() {
-			@Override
-			public void run() {
-				if(redisService.lockUpdateOperation("123456")) {
-					logger.info("##### first time locked #####");
-				} else {
-					logger.info("##### already locked #####");
-				}
+		try {
+			Integer nThreads = ConfigurationManager.getConfigInstance().getInteger("concurrent.quantity", 10);
+			ExecutorService pool = Executors.newFixedThreadPool(nThreads);
+			
+			for (int i = 0; i < nThreads * 10; i++) {
+				
+				pool.submit(new Runnable() {
+					
+					@Override
+					public void run() {
+						if(redisService.lockUpdateOperation("123456")) {
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							logger.info("##### first time locked #####");
+						} else {
+							logger.info("##### already locked #####");
+						}
+					}
+				});
 			}
-		});
+			
+			pool.shutdown();
+			pool.awaitTermination(60, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			logger.error("##### locked error, {} #####", e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public void add(Person person) {
