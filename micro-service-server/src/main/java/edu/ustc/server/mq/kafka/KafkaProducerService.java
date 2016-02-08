@@ -14,7 +14,7 @@ import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
 @Service
-public class KafkaService {
+public class KafkaProducerService {
 	
 	@Value("${kafka.server.address}")
 	private String serverAddress;
@@ -38,11 +38,13 @@ public class KafkaService {
 	
 	@PreDestroy
 	private void destory() {
-		producer.close();
+		if(null != producer) {
+			producer.close();
+		}
 	}
 	
-//	@Scheduled(cron = "0/2 * *  * * ? ")
-	@Scheduled(fixedDelay = 1000 * 60 * 60)
+	@Scheduled(cron = "0/2 * *  * * ? ")
+//	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void sendMessagge() {
 		sendMessagge("hello world...");
 	}

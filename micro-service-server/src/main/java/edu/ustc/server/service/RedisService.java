@@ -20,8 +20,7 @@ public class RedisService {
 	
 	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void print() {
-		logger.info(jedisCluster.info());
-		logger.info(jedisCluster.ping());
+		logger.info(jedisCluster.toString());
 	}
 	
 	public boolean lockUpdateOperation(String id) {

@@ -10,7 +10,7 @@
 	</parent>
 	
 	<artifactId>micro-service-server2</artifactId>
-		
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
