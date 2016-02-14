@@ -27,8 +27,8 @@ public class KafkaConsumerService {
 	private String topic;
 	
 	@SuppressWarnings("rawtypes")
-	@Scheduled(cron = "0/10 * *  * * ? ")
-//	@Scheduled(fixedDelay = 1000 * 60 * 60)
+//	@Scheduled(cron = "0/10 * *  * * ? ")
+	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void consumeMessage() throws Exception {
 		
 		ExecutorService executor = Executors.newFixedThreadPool(CONSUMER_THREAD_QUANTITY);

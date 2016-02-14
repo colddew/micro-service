@@ -3,9 +3,10 @@ package edu.ustc.server.interceptor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.netflix.hystrix.HystrixCommand;
@@ -17,17 +18,13 @@ import com.netflix.hystrix.HystrixThreadPoolKey;
 import com.netflix.hystrix.HystrixThreadPoolProperties;
 
 @Aspect
+@Order(value = Ordered.HIGHEST_PRECEDENCE)
 @Component
 public class HystrixCommandInterceptor {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HystrixCommandInterceptor.class);
 	
-	@Pointcut("execution(* edu.ustc.server.controller..*Controller.*(..))")
-	public void microController() {
-		
-	}
-	
-	@Around("microController()")
+	@Around("execution(* edu.ustc.server.controller..*Controller.*(..))")
 	public Object around(ProceedingJoinPoint point) throws Throwable {
 		
 		logger.info("doing before HystrixCommandInterceptor pointcut...");

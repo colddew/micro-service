@@ -43,8 +43,8 @@ public class KafkaProducerService {
 		}
 	}
 	
-	@Scheduled(cron = "0/2 * *  * * ? ")
-//	@Scheduled(fixedDelay = 1000 * 60 * 60)
+//	@Scheduled(cron = "0/2 * *  * * ? ")
+	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void sendMessagge() {
 		sendMessagge("hello world...");
 	}
