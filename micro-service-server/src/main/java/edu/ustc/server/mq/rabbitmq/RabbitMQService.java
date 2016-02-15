@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class RabbitMQService {
 	
 	private static final String QUEUE_NAME = "spring-boot";
+	private static final String ROUTING_KEY = "spring-boot-routing-key";
 	private static final String EXCHANGE_NAME = "spring-boot-exchange";
 	
 	@Autowired
@@ -35,7 +36,7 @@ public class RabbitMQService {
 	
 	@Bean
 	Binding binding(Queue queue, TopicExchange exchange) {
-		return BindingBuilder.bind(queue).to(exchange).with(QUEUE_NAME);
+		return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
 	}
 	
 	@Bean

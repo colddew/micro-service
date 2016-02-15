@@ -1,4 +1,4 @@
-package edu.ustc.server.mq;
+package edu.ustc.server.mq.rabbitmq;
 
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

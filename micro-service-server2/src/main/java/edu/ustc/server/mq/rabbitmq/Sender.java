@@ -1,4 +1,4 @@
-package edu.ustc.server.mq;
+package edu.ustc.server.mq.rabbitmq;
 
 import java.util.UUID;
 

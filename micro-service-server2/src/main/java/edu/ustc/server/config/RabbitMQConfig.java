@@ -2,24 +2,28 @@ package edu.ustc.server.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate.ConfirmCallback;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.retry.backoff.ExponentialBackOffPolicy;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import edu.ustc.server.mq.Receiver;
-import edu.ustc.server.mq.Sender;
+import edu.ustc.server.mq.rabbitmq.Receiver;
+import edu.ustc.server.mq.rabbitmq.Sender;
 
 @Configuration
 @EnableScheduling
@@ -34,7 +38,7 @@ public class RabbitMQConfig {
 	private String queueName;
 	
 	@Bean()
-//	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public RabbitTemplate rabbitTemplate() {
 		
 		ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
@@ -72,6 +76,14 @@ public class RabbitMQConfig {
 		return connectionFactory;
 	}
 	
+	public AmqpAdmin amqpAdmin() {
+		
+		RabbitAdmin admin = new RabbitAdmin(connectionFactory());
+		admin.setAutoStartup(false);
+		
+		return admin;
+	}
+	
 	@Bean
 	public Queue classesQueue() {
 		return new Queue(queueName, true, false, false);
@@ -83,7 +95,7 @@ public class RabbitMQConfig {
 	}
 	
 	@Bean
-	public Binding personBinding() {
+	public Binding classesBinding() {
 		return BindingBuilder.bind(classesQueue()).to(classesExchange());
 	}
 	
