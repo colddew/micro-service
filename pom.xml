@@ -28,6 +28,7 @@
 		<hystrix.version>1.4.22</hystrix.version>
 		<jedis.version>2.6.2</jedis.version>
 		<kafka.version>0.8.2.0</kafka.version>
+		<zxing.version>3.2.1</zxing.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -114,6 +115,17 @@
 				<groupId>org.apache.kafka</groupId>
 				<artifactId>kafka_2.10</artifactId>
 				<version>${kafka.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>core</artifactId>
+				<version>${zxing.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.zxing</groupId>
+				<artifactId>javase</artifactId>
+				<version>${zxing.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
