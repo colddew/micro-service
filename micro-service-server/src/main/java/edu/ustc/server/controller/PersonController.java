@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/person")
+@RequestMapping("/api/v1/person")
 @Api("人员信息相关操作")
 public class PersonController {
 	

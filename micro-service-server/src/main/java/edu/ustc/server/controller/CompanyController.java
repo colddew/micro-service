@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/company")
+@RequestMapping("/api/v1/company")
 @Api("公司信息相关操作")
 public class CompanyController {
 	

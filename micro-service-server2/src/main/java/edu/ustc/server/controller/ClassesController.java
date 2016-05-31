@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/classes")
+@RequestMapping("/api/v1/classes")
 @Api("班级信息相关操作")
 public class ClassesController {
 	

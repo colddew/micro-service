@@ -9,10 +9,8 @@ import edu.ustc.server.listener.EnvironmentPreparedEventApplicationListener;
 import edu.ustc.server.listener.FailedEventApplicationListener;
 import edu.ustc.server.listener.PreparedEventApplicationListener;
 import edu.ustc.server.listener.StartedEventApplicationListener;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSwagger2
 public class MicroServiceServer {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MicroServiceServer.class);

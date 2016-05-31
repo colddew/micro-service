@@ -10,9 +10,9 @@ import retrofit.http.Path;
 
 public interface ClassesClientApi {
 	
-	@GET("/classes")
+	@GET("/api/v1/classes")
 	public List<Classes> list();
 	
-	@PUT("/classes/{id}")
+	@PUT("/api/v1/classes/{id}")
 	public Void update(@Path("id") Integer id, @Body Classes classesDto);
 }

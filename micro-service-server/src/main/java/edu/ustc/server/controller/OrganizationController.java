@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/organization")
+@RequestMapping("/api/v1/organization")
 @Api("组织信息相关操作")
 public class OrganizationController {
 	

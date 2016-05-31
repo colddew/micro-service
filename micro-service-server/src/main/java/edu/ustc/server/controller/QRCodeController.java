@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/qrcode")
+@RequestMapping("/api/v1/qrcode")
 @Api("二维码相关操作")
 public class QRCodeController {
 	
