@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>edu.ustc</groupId>
 		<artifactId>micro-service</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>micro-service-gateway</artifactId>
@@ -15,12 +15,10 @@
 		<dependency>
 			<groupId>edu.ustc</groupId>
 			<artifactId>micro-service-server</artifactId>
-			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.ustc</groupId>
 			<artifactId>micro-service-server2</artifactId>
-			<version>${project.parent.version}</version>
 		</dependency>
 		
 		<dependency>

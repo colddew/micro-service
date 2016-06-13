@@ -5,7 +5,7 @@
 	<groupId>edu.ustc</groupId>
 	<artifactId>micro-service</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,6 +34,22 @@
 				<version>${spring-boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			
+			<dependency>
+				<groupId>edu.ustc</groupId>
+				<artifactId>micro-service-common</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>edu.ustc</groupId>
+				<artifactId>micro-service-server</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>edu.ustc</groupId>
+				<artifactId>micro-service-server2</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 			
 			<dependency>
