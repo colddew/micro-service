@@ -53,7 +53,7 @@ public class DatasourceConfig {
         try {
         	dataSource = (DruidDataSource) DruidDataSourceFactory.createDataSource(dbProperties);
         	if(null != dataSource) {
-        		dataSource.setFilters("wall,stat");
+//        		dataSource.setFilters("wall,stat");
 //        		dataSource.setTimeBetweenLogStatsMillis(5000);
         		dataSource.init();
         	}

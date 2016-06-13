@@ -19,7 +19,7 @@ public class InterceptorConfig {
 		
 		BeanNameAutoProxyCreator creator = new BeanNameAutoProxyCreator();
 		creator.setProxyTargetClass(true);
-		creator.setBeanNames("personController");
+		creator.setBeanNames("companyController", "organizationController", "personController", "qRCodeController");
 		creator.setInterceptorNames("druidStatInterceptor");
 		
 		System.out.println("load druid stat interceptor...");
