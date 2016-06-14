@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
+//import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import kafka.javaapi.producer.Producer;
@@ -44,7 +44,7 @@ public class KafkaProducerService {
 	}
 	
 //	@Scheduled(cron = "0/2 * *  * * ? ")
-	@Scheduled(fixedDelay = 1000 * 60 * 60)
+//	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void sendMessagge() {
 		sendMessagge("hello world...");
 	}

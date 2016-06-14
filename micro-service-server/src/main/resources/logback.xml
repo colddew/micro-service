@@ -114,5 +114,10 @@
 	    
     <!-- sends logs to logback-beagle -->
   	<consolePlugin />
+  	
+  	<!-- activate the JMXConfigurator for spring-boot-admin -->
+  	<contextName>micro-service-server</contextName>
+  	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
     
 </configuration>

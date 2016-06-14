@@ -5,7 +5,7 @@
 	<groupId>edu.ustc</groupId>
 	<artifactId>micro-service</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +24,7 @@
 		<jedis.version>2.6.2</jedis.version>
 		<kafka.version>0.8.2.0</kafka.version>
 		<zxing.version>3.2.1</zxing.version>
+		<spring-boot-admin.version>1.3.3</spring-boot-admin.version>
 	</properties>
 	
 	<dependencyManagement>
@@ -146,6 +147,22 @@
 				<artifactId>javase</artifactId>
 				<version>${zxing.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server</artifactId>
+				<version>${spring-boot-admin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-server-ui</artifactId>
+				<version>${spring-boot-admin.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.codecentric</groupId>
+				<artifactId>spring-boot-admin-starter-client</artifactId>
+				<version>${spring-boot-admin.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	
@@ -158,6 +175,12 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 	
 	<modules>
@@ -167,5 +190,6 @@
 		<module>micro-service-gateway</module>
 		<module>micro-service-task</module>
 		<module>micro-service-task2</module>
-  </modules>
+		<module>micro-service-admin</module>
+	</modules>
 </project>

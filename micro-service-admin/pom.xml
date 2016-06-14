@@ -9,16 +9,20 @@
 		<version>0.0.3-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>micro-service-task2</artifactId>
+	<artifactId>micro-service-admin</artifactId>
 	
 	<dependencies>
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-server-ui</artifactId>
+		</dependency>
 	</dependencies>
 	
 	<build>
-		<finalName>micro-service-task2</finalName>
+		<finalName>micro-service-admin</finalName>
 	</build>
 </project>

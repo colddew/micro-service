@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
+//import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import kafka.consumer.Consumer;
@@ -28,7 +28,7 @@ public class KafkaConsumerService {
 	
 	@SuppressWarnings("rawtypes")
 //	@Scheduled(cron = "0/10 * *  * * ? ")
-	@Scheduled(fixedDelay = 1000 * 60 * 60)
+//	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void consumeMessage() throws Exception {
 		
 		ExecutorService executor = Executors.newFixedThreadPool(CONSUMER_THREAD_QUANTITY);
