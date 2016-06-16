@@ -176,6 +176,7 @@
 	</dependencyManagement>
 	
 	<build>
+		<finalName>micro-service</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>

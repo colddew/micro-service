@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.ustc.gateway.service.interceptor.SessionRequestInterceptor;
 import edu.ustc.server.client.ClassesClientApi;
 import edu.ustc.server.client.PersonClientApi;
 import edu.ustc.server.pojo.Classes;

@@ -1,4 +1,4 @@
-package edu.ustc.gateway.service;
+package edu.ustc.gateway.service.interceptor;
 
 import retrofit.RequestInterceptor;
 
