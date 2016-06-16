@@ -70,12 +70,12 @@ public class PersonService {
 		logger.info("person.register.pre.day:fix:" + preDayRegisterQuantity);
 		logger.info("person.register.pre.day:dynamic:" + getPreDayRegisterQuantity());
 		logger.info("person.register.pre.day:netflix:" + ConfigurationManager.getConfigInstance().getInteger("person.register.pre.day", 600));
-		logger.info("person.register.pre.day:netflix:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.pre.day", 600).get());
+		logger.info("person.register.pre.day:netflix2:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.pre.day", 600).get());
 		
 		logger.info("person.register.total:fix:" + totalRegisterQuantity);
 		logger.info("person.register.total:dynamic:" + getTotalRegisterQuantity());
 		logger.info("person.register.pre.day:netflix:" + ConfigurationManager.getConfigInstance().getInteger("person.register.total", 20000));
-		logger.info("person.register.pre.day:netflix:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.total", 20000).get());
+		logger.info("person.register.pre.day:netflix2:" + DynamicPropertyFactory.getInstance().getIntProperty("person.register.total", 20000).get());
 		
 		logger.info("concurrent.quantity" + ConfigurationManager.getConfigInstance().getInteger("concurrent.quantity", 10));
 	}
