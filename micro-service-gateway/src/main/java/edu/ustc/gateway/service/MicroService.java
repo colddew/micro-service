@@ -26,11 +26,11 @@ public class MicroService {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSS'Z'").create();
 		
 		RestAdapter personRestAdapter = new RestAdapter.Builder().setLogLevel(RestAdapter.LogLevel.FULL).setEndpoint("http://localhost:9001")
-			.setConverter(new GsonConverter(gson)).setRequestInterceptor(new SessionRequestInterceptor()).build();
+			.setConverter(new GsonConverter(gson)).setRequestInterceptor(new SessionRequestInterceptor()).setClient(new MicroServiceClient()).build();
 		personClientApi = personRestAdapter.create(PersonClientApi.class);
 		
 		RestAdapter classesRestAdapter = new RestAdapter.Builder().setLogLevel(RestAdapter.LogLevel.FULL).setEndpoint("http://localhost:9002")
-			.setConverter(new GsonConverter(gson)).setRequestInterceptor(new SessionRequestInterceptor()).build();
+			.setConverter(new GsonConverter(gson)).setRequestInterceptor(new SessionRequestInterceptor()).setClient(new MicroServiceClient()).build();
 		classesClientApi = classesRestAdapter.create(ClassesClientApi.class);
 	}
 	
