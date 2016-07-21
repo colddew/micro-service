@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.ustc.gateway.config.MicroServiceClient;
 import edu.ustc.gateway.service.interceptor.SessionRequestInterceptor;
 import edu.ustc.server.client.ClassesClientApi;
 import edu.ustc.server.client.PersonClientApi;
@@ -30,7 +31,7 @@ public class MicroService {
 				.setEndpoint("http://localhost:9001")
 				.setConverter(new GsonConverter(gson))
 				.setRequestInterceptor(new SessionRequestInterceptor())
-				.setClient(new MicroServiceClient(MicroServiceClient.IS_ASYN_CLIENT_NO))
+				.setClient(new MicroServiceClient(MicroServiceClient.IS_ASYNC_CLIENT_NO))
 				.build();
 		personClientApi = personRestAdapter.create(PersonClientApi.class);
 		
@@ -39,7 +40,7 @@ public class MicroService {
 				.setEndpoint("http://localhost:9002")
 				.setConverter(new GsonConverter(gson))
 				.setRequestInterceptor(new SessionRequestInterceptor())
-				.setClient(new MicroServiceClient(MicroServiceClient.IS_ASYN_CLIENT_NO))
+				.setClient(new MicroServiceClient(MicroServiceClient.IS_ASYNC_CLIENT_YES))
 				.build();
 		classesClientApi = classesRestAdapter.create(ClassesClientApi.class);
 	}

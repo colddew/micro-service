@@ -1,4 +1,4 @@
-package edu.ustc.gateway.service;
+package edu.ustc.gateway.config;
 
 import java.io.IOException;
 
@@ -14,37 +14,36 @@ public class MicroServiceClient implements Client {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MicroServiceClient.class);
 	
-	public static final Integer IS_ASYN_CLIENT_YES = 1;
-	public static final Integer IS_ASYN_CLIENT_NO = 0;
+	public static final Integer IS_ASYNC_CLIENT_YES = 1;
+	public static final Integer IS_ASYNC_CLIENT_NO = 0;
 	
-	private Integer isAsyn;
+	private Integer isAsync;
 	
-	public Integer getIsAsyn() {
-		return isAsyn;
+	public Integer getIsAsync() {
+		return isAsync;
 	}
 	
-	public void setIsAsyn(Integer isAsyn) {
-		this.isAsyn = isAsyn;
+	public void setIsAsync(Integer isAsync) {
+		this.isAsync = isAsync;
 	}
 	
-	public MicroServiceClient(Integer isAsyn) {
-		this.isAsyn = isAsyn;
+	public MicroServiceClient(Integer isAsync) {
+		this.isAsync = isAsync;
 	}
 	
 	@Override
 	public Response execute(Request request) throws IOException {
-		
-		logger.info("invoke remote microservice by self-define retrofit client, the url is {}" , request.getUrl());
-		
-		if(IS_ASYN_CLIENT_YES.equals(isAsyn)) {
+		if(IS_ASYNC_CLIENT_YES.equals(isAsync)) {
+			logger.info("invoke remote microservice by async retrofit client, the url is {}" , request.getUrl());
 			return getAsyncHttpClient(request);
 		} else {
+			logger.info("invoke remote microservice by sync retrofit client, the url is {}" , request.getUrl());
 			return getOkHttpClient(request);
 		}
 	}
 	
 	private Response getAsyncHttpClient(Request request) throws IOException {
-		return null;
+		return new AsyncClient().execute(request);
 	}
 	
 	private Response getOkHttpClient(Request request) throws IOException {
