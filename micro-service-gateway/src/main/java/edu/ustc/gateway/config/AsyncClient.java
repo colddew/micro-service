@@ -21,39 +21,50 @@ import retrofit.mime.TypedInput;
 
 public class AsyncClient implements Client {
 	
+	private static AsyncHttpClient generateAsyncHttpClient() {
+		AsyncHttpClient asyncHttpClient = new DefaultAsyncHttpClient();
+		return asyncHttpClient;
+	}
+	
+	private final AsyncHttpClient client;
+	
+	public AsyncClient() {
+		this(generateAsyncHttpClient());
+	}
+	
+	public AsyncClient(AsyncHttpClient client) {
+		if (client == null) throw new NullPointerException("client == null");
+	    this.client = client;
+	}
+	
 	@Override
 	public Response execute(Request request) throws IOException {
-		
-		AsyncHttpClient asyncHttpClient = new DefaultAsyncHttpClient();
-		
 		try {
-			
-			Future<org.asynchttpclient.Response> future = asyncHttpClient.prepareGet(request.getUrl()).execute();
-			org.asynchttpclient.Response response = future.get();
-			
-			List<Header> headers = new ArrayList<Header>();
-			List<Entry<String, String>> entries = response.getHeaders().entries();
-			for(Entry<String, String> entry : entries) {
-				headers.add(new Header(entry.getKey(), entry.getValue()));
-			}
-			
-			String mimeType = response.getContentType();
-			byte[] bytes = response.getResponseBodyAsBytes();
-			long length = bytes.length;
-			BufferedInputStream stream = new BufferedInputStream(new ByteArrayInputStream(bytes));
-			AsyncInputStream body = new AsyncInputStream(mimeType, length, stream);
-			
-			return new Response(request.getUrl(), response.getStatusCode(), response.getStatusText(), headers, body);
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
-		} finally {
-			if(null != asyncHttpClient) {
-				asyncHttpClient.close();
-			}
+			org.asynchttpclient.Response response = asyncExecute(request);
+			return parseResponse(request, response);
+		} catch (Exception e) {
+			throw new IOException(e.getMessage());
+		}
+	}
+	
+	private org.asynchttpclient.Response asyncExecute(Request request) throws InterruptedException, ExecutionException {
+		Future<org.asynchttpclient.Response> future = client.prepareGet(request.getUrl()).execute();
+		return future.get();
+	}
+	
+	private Response parseResponse(Request request, org.asynchttpclient.Response response) {
+		
+		List<Header> headers = new ArrayList<Header>();
+		List<Entry<String, String>> entries = response.getHeaders().entries();
+		for(Entry<String, String> entry : entries) {
+			headers.add(new Header(entry.getKey(), entry.getValue()));
 		}
 		
+		byte[] bytes = response.getResponseBodyAsBytes();
+		BufferedInputStream stream = new BufferedInputStream(new ByteArrayInputStream(bytes));
+		AsyncInputStream body = new AsyncInputStream(response.getContentType(), (long) bytes.length, stream);
 		
-		return null;
+		return new Response(request.getUrl(), response.getStatusCode(), response.getStatusText(), headers, body);
 	}
 	
 	private static class AsyncInputStream implements TypedInput {
