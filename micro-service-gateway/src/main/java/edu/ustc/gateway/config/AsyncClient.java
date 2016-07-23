@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -55,10 +54,9 @@ public class AsyncClient implements Client {
 	private Response parseResponse(Request request, org.asynchttpclient.Response response) {
 		
 		List<Header> headers = new ArrayList<Header>();
-		List<Entry<String, String>> entries = response.getHeaders().entries();
-		for(Entry<String, String> entry : entries) {
-			headers.add(new Header(entry.getKey(), entry.getValue()));
-		}
+		response.getHeaders().forEach(header -> {
+			headers.add(new Header(header.getKey(), header.getValue()));
+		});
 		
 		byte[] bytes = response.getResponseBodyAsBytes();
 		BufferedInputStream stream = new BufferedInputStream(new ByteArrayInputStream(bytes));
