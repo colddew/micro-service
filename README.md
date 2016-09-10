@@ -10,8 +10,8 @@ turbine、hystrix、zxing
 
 future plans
 =======
-introduce consul, elk and etc.  
-improve kafka and cassandra
+improve kafka and cassandra  
+introduce consul, elk and etc.
 
 build
 =======
