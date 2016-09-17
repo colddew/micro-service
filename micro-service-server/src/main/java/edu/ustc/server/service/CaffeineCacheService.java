@@ -14,12 +14,16 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 
 @Service
-public class CacheService {
+public class CaffeineCacheService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(CacheService.class);
+	private static final Logger logger = LoggerFactory.getLogger(CaffeineCacheService.class);
 	
 	private static LoadingCache<String, String> caffeineCache;
 	
+	/**
+	 * refreshAfterWrite will make a key eligible for refresh after the specified duration, 
+	 * but a refresh will only be actually initiated when the entry is queried
+	 */
 	@PostConstruct
 	public void init() {
 		
@@ -35,6 +39,11 @@ public class CacheService {
 	@Scheduled(fixedDelay = 1000 * 5)
 	public void loadCaffeineCache() {
 		logger.info("load caffeine cache, {}", caffeineCache.asMap());
+	}
+	
+	@Scheduled(fixedDelay = 1000 * 15)
+	public void queryCaffeineCache() {
+		logger.info("query caffeine cache, {}", caffeineCache.get("k1"));
 	}
 
 	private String costExpensiveResources(String key) {
