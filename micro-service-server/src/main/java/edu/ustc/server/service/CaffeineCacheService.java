@@ -45,7 +45,7 @@ public class CaffeineCacheService {
 	public void queryCaffeineCache() {
 		logger.info("query caffeine cache, {}", caffeineCache.get("k1"));
 	}
-
+	
 	private String costExpensiveResources(String key) {
 		return RandomStringUtils.randomAlphanumeric(10);
 	}
