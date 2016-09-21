@@ -9,7 +9,7 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-boot.version>1.4.0.RELEASE</spring-boot.version>
+		<spring-boot.version>1.4.1.RELEASE</spring-boot.version>
 		<spring-cloud.version>Brixton.SR1</spring-cloud.version>
 		<druid.version>1.0.20</druid.version>
 		<mybatis.version>3.3.0</mybatis.version>
