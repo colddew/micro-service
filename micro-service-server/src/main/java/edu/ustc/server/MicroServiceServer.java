@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import edu.ustc.server.listener.EnvironmentPreparedEventApplicationListener;
 import edu.ustc.server.listener.FailedEventApplicationListener;
@@ -11,6 +12,7 @@ import edu.ustc.server.listener.PreparedEventApplicationListener;
 import edu.ustc.server.listener.StartedEventApplicationListener;
 
 @SpringBootApplication
+@EnableCaching
 public class MicroServiceServer {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MicroServiceServer.class);
