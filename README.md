@@ -11,7 +11,7 @@ turbine、hystrix、zxing
 future plans
 =======
 improve kafka and cassandra  
-introduce consul, elk and etc.
+introduce consul, elk and etc.  
 implement javascript, groovy, lua, scala, clojure illustration
 
 build
