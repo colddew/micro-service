@@ -5,10 +5,11 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import edu.ustc.server.config.KafkaProperties;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
@@ -16,11 +17,8 @@ import kafka.producer.ProducerConfig;
 @Service
 public class KafkaProducerService {
 	
-	@Value("${kafka.server.address}")
-	private String serverAddress;
-	
-	@Value("${kafka.topic}")
-	private String topic;
+	@Autowired
+	private KafkaProperties kafkaProperties;
 	
 	private Producer<String, String> producer;
 	
@@ -28,7 +26,7 @@ public class KafkaProducerService {
 	private void init() {
 		
 		Properties props = new Properties();
-		props.setProperty("metadata.broker.list", serverAddress);
+		props.setProperty("metadata.broker.list", kafkaProperties.getServerAddress());
 		props.setProperty("serializer.class", "kafka.serializer.StringEncoder");
 		props.put("request.required.acks", "1");
 		
@@ -50,7 +48,7 @@ public class KafkaProducerService {
 	}
 	
 	public void sendMessagge(String message) {
-		KeyedMessage<String, String> data = new KeyedMessage<String, String>(topic, message);
+		KeyedMessage<String, String> data = new KeyedMessage<String, String>(kafkaProperties.getTopic(), message);
 		producer.send(data);
 	}
 }
