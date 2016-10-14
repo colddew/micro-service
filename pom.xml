@@ -23,7 +23,7 @@
 		<shardbatis.version>2.0.0B</shardbatis.version>
 		<hystrix.version>1.4.22</hystrix.version>
 		<jedis.version>2.8.1</jedis.version>
-		<kafka.version>0.8.2.0</kafka.version>
+		<kafka.version>0.10.0.1</kafka.version>
 		<cassandra.driver.version>2.1.9</cassandra.driver.version>
 		<zxing.version>3.2.1</zxing.version>
 		<asynchttpclient.version>2.0.10</asynchttpclient.version>
@@ -145,7 +145,7 @@
 			
 			<dependency>
 				<groupId>org.apache.kafka</groupId>
-				<artifactId>kafka_2.10</artifactId>
+				<artifactId>kafka_2.11</artifactId>
 				<version>${kafka.version}</version>
 			</dependency>
 			

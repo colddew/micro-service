@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 //import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,11 @@ public class KafkaProducerService {
 	private void init() {
 		
 		Properties props = new Properties();
-		props.setProperty("metadata.broker.list", kafkaProperties.getServerAddress());
-		props.setProperty("serializer.class", "kafka.serializer.StringEncoder");
-		props.put("request.required.acks", "1");
+		props.setProperty("metadata.broker.list", kafkaProperties.getBrokerList());
+		props.setProperty("serializer.class", kafkaProperties.getSerializerClass());
+		props.put("request.required.acks", kafkaProperties.getRequestRequiredAcks());
+		props.put("producer.type", kafkaProperties.getProducerType());
+		props.put("request.timeout.ms", kafkaProperties.getRequestTimeout());
 		
 		ProducerConfig config = new ProducerConfig(props);
 		producer = new Producer<String, String>(config);
@@ -41,7 +44,7 @@ public class KafkaProducerService {
 		}
 	}
 	
-//	@Scheduled(cron = "0/2 * *  * * ? ")
+	@Scheduled(cron = "0/2 * *  * * ? ")
 //	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void sendMessagge() {
 		sendMessagge("hello world...");

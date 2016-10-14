@@ -8,10 +8,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import edu.ustc.server.config.KafkaProperties;
 import kafka.consumer.Consumer;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
@@ -23,32 +24,32 @@ public class KafkaConsumerService {
 	
 	private static final Integer CONSUMER_THREAD_QUANTITY = 3;
 	
-	@Value("${kafka.topic}")
-	private String topic;
+	@Autowired
+	private KafkaProperties kafkaProperties;
 	
 	@SuppressWarnings("rawtypes")
-//	@Scheduled(cron = "0/10 * *  * * ? ")
+	@Scheduled(cron = "0/10 * *  * * ? ")
 //	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void consumeMessage() throws Exception {
 		
 		ExecutorService executor = Executors.newFixedThreadPool(CONSUMER_THREAD_QUANTITY);
 		
 		Properties props = new Properties();
-		props.put("zookeeper.connect", "localhost:2181");
-		props.put("group.id", "microservice-group");
-		props.put("zookeeper.session.timeout.ms", "4000");
-		props.put("zookeeper.sync.time.ms", "2000");
-		props.put("auto.commit.interval.ms", "1000");
+		props.put("zookeeper.connect", kafkaProperties.getZookeeperConnect());
+		props.put("group.id", kafkaProperties.getGroupId());
+		props.put("zookeeper.session.timeout.ms", kafkaProperties.getZookeeperSessionTimeout());
+		props.put("zookeeper.sync.time.ms", kafkaProperties.getZookeeperSyncTime());
+		props.put("auto.commit.interval.ms", kafkaProperties.getAutoCommitInterval());
 		
 		ConsumerConfig config = new ConsumerConfig(props);
 		ConsumerConnector consumer = Consumer.createJavaConsumerConnector(config);
 		
 		Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
-		topicCountMap.put(topic, CONSUMER_THREAD_QUANTITY);
+		topicCountMap.put(kafkaProperties.getTopic(), CONSUMER_THREAD_QUANTITY);
 		
 		Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
 		
-		List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(topic);
+		List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(kafkaProperties.getTopic());
 		for (final KafkaStream stream : streams) {
 			executor.submit(new Runnable() {
 				@SuppressWarnings("unchecked")
