@@ -29,9 +29,9 @@ public class KafkaProducerService {
 		Properties props = new Properties();
 		props.setProperty("metadata.broker.list", kafkaProperties.getBrokerList());
 		props.setProperty("serializer.class", kafkaProperties.getSerializerClass());
-		props.put("request.required.acks", kafkaProperties.getRequestRequiredAcks());
-		props.put("producer.type", kafkaProperties.getProducerType());
-		props.put("request.timeout.ms", kafkaProperties.getRequestTimeout());
+		props.setProperty("request.required.acks", kafkaProperties.getRequestRequiredAcks());
+		props.setProperty("producer.type", kafkaProperties.getProducerType());
+		props.setProperty("request.timeout.ms", kafkaProperties.getRequestTimeout());
 		
 		ProducerConfig config = new ProducerConfig(props);
 		producer = new Producer<String, String>(config);
