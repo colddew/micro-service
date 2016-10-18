@@ -5,15 +5,15 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-//import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import edu.ustc.server.config.KafkaProperties;
-import kafka.javaapi.producer.Producer;
-import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;
 
 @Service
 public class KafkaProducerService {
@@ -27,14 +27,13 @@ public class KafkaProducerService {
 	private void init() {
 		
 		Properties props = new Properties();
-		props.setProperty("metadata.broker.list", kafkaProperties.getBrokerList());
-		props.setProperty("serializer.class", kafkaProperties.getSerializerClass());
-		props.setProperty("request.required.acks", kafkaProperties.getRequestRequiredAcks());
-		props.setProperty("producer.type", kafkaProperties.getProducerType());
-		props.setProperty("request.timeout.ms", kafkaProperties.getRequestTimeout());
+		props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBrokerList());
+		props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, kafkaProperties.getKeySerializer());
+		props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, kafkaProperties.getValueSerializer());
+		props.setProperty(ProducerConfig.ACKS_CONFIG, kafkaProperties.getAcks());
+		props.setProperty(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, kafkaProperties.getRequestTimeout());
 		
-		ProducerConfig config = new ProducerConfig(props);
-		producer = new Producer<String, String>(config);
+		producer = new KafkaProducer<>(props);
 	}
 	
 	@PreDestroy
@@ -51,7 +50,7 @@ public class KafkaProducerService {
 	}
 	
 	public void sendMessagge(String message) {
-		KeyedMessage<String, String> data = new KeyedMessage<String, String>(kafkaProperties.getTopic(), message);
+		ProducerRecord<String, String> data = new ProducerRecord<String, String>(kafkaProperties.getTopic(), message);
 		producer.send(data);
 	}
 }

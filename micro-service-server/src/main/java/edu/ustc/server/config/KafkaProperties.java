@@ -9,9 +9,9 @@ public class KafkaProperties {
 
 	private String brokerList;
 	private String topic;
-	private String serializerClass;
-	private String requestRequiredAcks;
-	private String producerType;
+	private String keySerializer;
+	private String valueSerializer;
+	private String acks;
 	private String requestTimeout;
 	private String zookeeperConnect;
 	private String groupId;
@@ -35,28 +35,28 @@ public class KafkaProperties {
 		this.topic = topic;
 	}
 
-	public String getSerializerClass() {
-		return serializerClass;
+	public String getKeySerializer() {
+		return keySerializer;
 	}
 
-	public void setSerializerClass(String serializerClass) {
-		this.serializerClass = serializerClass;
+	public void setKeySerializer(String keySerializer) {
+		this.keySerializer = keySerializer;
 	}
 
-	public String getRequestRequiredAcks() {
-		return requestRequiredAcks;
+	public String getValueSerializer() {
+		return valueSerializer;
 	}
 
-	public void setRequestRequiredAcks(String requestRequiredAcks) {
-		this.requestRequiredAcks = requestRequiredAcks;
+	public void setValueSerializer(String valueSerializer) {
+		this.valueSerializer = valueSerializer;
 	}
 
-	public String getProducerType() {
-		return producerType;
+	public String getAcks() {
+		return acks;
 	}
 
-	public void setProducerType(String producerType) {
-		this.producerType = producerType;
+	public void setAcks(String acks) {
+		this.acks = acks;
 	}
 
 	public String getRequestTimeout() {
