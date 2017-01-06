@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,6 +32,13 @@ public class CustomerDao {
 		session = cluster.connect("mykeyspace");
 		customerMapper = new MappingManager(session).mapper(Customer.class);
 		customerMapper.setDefaultSaveOptions(Mapper.Option.saveNullFields(false));
+	}
+	
+	@PreDestroy
+	public void destory() {
+		if(null != session) {
+			session.close();
+		}
 	}
 	
 	public List<Customer> list(Map<String, Object> params) {
