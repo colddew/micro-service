@@ -6,7 +6,7 @@ tech stack
 =======
 spring-boot、spring-boot-admin、swagger、retrofit、okhttp、logback  
 mybatis、druid、jedis、kafka、mongodb、cassandra、shardbatis  
-turbine、hystrix、zxing
+turbine、hystrix、zxing、neo4j、caffeine
 
 future plans
 =======
