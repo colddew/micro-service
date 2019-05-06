@@ -25,7 +25,7 @@ Tech Stack & Legacy Issue
 
 Future Plans
 =======
-- upgrade spring-boot from 1 to 2
+- upgrade spring-boot from 1.x to 2.x
 - improve kafka, cassandra, neo4j, rabbitmq
 - introduce consul, elk
 - implement javascript, groovy, lua, scala, clojure illustration
