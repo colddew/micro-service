@@ -9,14 +9,14 @@ Tech Stack & Legacy Issue
 - [x] swagger
 - [x] retrofit
 - [x] okhttp
-- [x] logback  
+- [x] logback
 - [x] mybatis
 - [x] druid
 - [x] jedis
 - [x] kafka
 - [x] mongodb
 - [x] cassandra
-- [x] shardbatis  
+- [x] shardbatis
 - [x] turbine
 - [x] hystrix
 - [x] zxing
