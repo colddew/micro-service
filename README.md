@@ -1,19 +1,35 @@
-description
+Description
 =======
-micro service architecture
+Micro Service architecture based on latest popular technologies
 
-tech stack
+Tech Stack & Legacy Issue
 =======
-spring-boot、spring-boot-admin、swagger、retrofit、okhttp、logback  
-mybatis、druid、jedis、kafka、mongodb、cassandra、shardbatis  
-turbine、hystrix、zxing、neo4j、caffeine
+- [x] spring-boot: upgrade to 2.0
+- [x] spring-boot-admin
+- [x] swagger
+- [x] retrofit
+- [x] okhttp
+- [x] logback  
+- [x] mybatis
+- [x] druid
+- [x] jedis
+- [x] kafka
+- [x] mongodb
+- [x] cassandra
+- [x] shardbatis  
+- [x] turbine
+- [x] hystrix
+- [x] zxing
+- [x] neo4j
+- [x] caffeine
 
-future plans
+Future Plans
 =======
-improve kafka and cassandra  
-introduce consul, elk and etc.  
-implement javascript, groovy, lua, scala, clojure illustration
+- improve kafka, cassandra, neo4j, rabbitmq
+- introduce consul, elk
+- implement javascript, groovy, lua, scala, clojure illustration
+- introduce RxJava, WebFlux, Reactive Stack
 
-build
+Build
 =======
 mvn versions:set versions:commit -DnewVersion=`<version>`
