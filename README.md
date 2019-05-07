@@ -27,12 +27,12 @@ Future Plans
 =======
 - refactor project
 - upgrade all dependencies from spring boot 1.x to 2.x
-- auto configuration, SpringApplication loading, externalized configuration, webflux
-- improve kafka, cassandra, neo4j, rabbitmq
-- introduce consul, elk, jwt
-- implement javascript, groovy, lua, scala, clojure illustration
+- auto configuration, SpringApplication loading analysis, externalized configuration
 - introduce RxJava, WebFlux, Reactive Stack
-- add exception handle, log, transaction
+- add exception handle, log, transaction, jwt/openid
+- improve kafka, cassandra, neo4j, rabbitmq
+- introduce consul, elk
+- implement kotlin, javascript, groovy, lua, scala, clojure illustration
 
 Build
 =======
