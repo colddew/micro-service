@@ -5,12 +5,12 @@
 	<groupId>edu.ustc</groupId>
 	<artifactId>micro-service</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-		<spring-cloud.version>Brixton.SR1</spring-cloud.version>
+		<spring-boot.version>2.1.4.RELEASE</spring-boot.version>
+		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
 		<druid.version>1.0.20</druid.version>
 		<mybatis.version>3.3.0</mybatis.version>
 		<mybatis.spring.version>1.2.3</mybatis.spring.version>
@@ -214,7 +214,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.3</version>
+					<version>3.8.1</version>
 					<configuration>
 						<source>1.8</source>
 						<target>1.8</target>
@@ -233,6 +233,7 @@
 	<modules>
 		<module>micro-service-server</module>
 		<module>micro-service-server2</module>
+		<module>micro-service-server3</module>
 		<module>micro-service-common</module>
 		<module>micro-service-gateway</module>
 		<module>micro-service-task</module>

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>edu.ustc</groupId>
 		<artifactId>micro-service</artifactId>
-		<version>0.0.3-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>micro-service-task</artifactId>
@@ -17,7 +17,7 @@
 			 <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>1.4</version>
+				<version>3.2.1</version>
 				<executions>
 					<execution>
 						<phase>package</phase>

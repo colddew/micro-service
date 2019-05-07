@@ -1,18 +1,16 @@
 package edu.ustc.server.mq.rabbitmq;
 
-import java.util.UUID;
-
+import com.alibaba.fastjson.JSON;
+import edu.ustc.server.pojo.Classes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.support.CorrelationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.alibaba.fastjson.JSON;
-
-import edu.ustc.server.pojo.Classes;
+import java.util.UUID;
 
 public class Sender {
 	
