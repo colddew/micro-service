@@ -21,6 +21,6 @@ public class MicroServiceServer {
 				.properties("hello=world")
 				.run(args);
 
-		logger.info("micro-service-server3 is running...");
+		logger.info("micro-service-server-reactive is running...");
 	}
 }

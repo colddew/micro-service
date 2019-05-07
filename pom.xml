@@ -241,7 +241,7 @@
 	<modules>
 		<module>micro-service-server</module>
 		<module>micro-service-server2</module>
-		<module>micro-service-server3</module>
+		<module>micro-service-server-reactive</module>
 		<module>micro-service-common</module>
 		<module>micro-service-gateway</module>
 		<module>micro-service-task</module>
