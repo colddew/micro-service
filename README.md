@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/colddew/micro-service-pipeline.svg?branch=master)](https://travis-ci.org/colddew/micro-service-pipeline)
-[![codecov](https://codecov.io/gh/colddew/micro-service-pipeline/branch/master/graph/badge.svg)](https://codecov.io/gh/colddew/micro-service-pipeline)
+[![Build Status](https://travis-ci.org/colddew/micro-service.svg?branch=master)](https://travis-ci.org/colddew/micro-service)
+[![codecov](https://codecov.io/gh/colddew/micro-service/branch/master/graph/badge.svg)](https://codecov.io/gh/colddew/micro-service)
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://doge.mit-license.org)
 
 Brief
