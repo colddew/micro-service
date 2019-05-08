@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/colddew/micro-service-pipeline.svg?branch=master)](https://travis-ci.org/colddew/micro-service-pipeline)
+[![codecov](https://codecov.io/gh/colddew/micro-service-pipeline/branch/master/graph/badge.svg)](https://codecov.io/gh/colddew/micro-service-pipeline)
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat)](http://doge.mit-license.org)
+
 Brief
 =======
 Micro Service architecture based on latest popular technologies
