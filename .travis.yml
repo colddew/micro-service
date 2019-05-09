@@ -6,7 +6,7 @@ before_install:
     - mvn -v
     - cd dependencies
     - mv org ~/.m2/
-    - pwd
+    - cd -
 
 script:
     - mvn clean test
