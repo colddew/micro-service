@@ -3,10 +3,12 @@ language: java
 jdk: oraclejdk8
 
 before_install:
+    - cd ~/.m2
     - pwd
     - mvn -v
     - cd dependencies
     - mv org ~/.m2/
+    - pwd
 
 script:
     - mvn clean test
