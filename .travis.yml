@@ -5,9 +5,8 @@ jdk: oraclejdk8
 before_install:
     - pwd
     - mvn -v
-    - echo ${M2_HOME}
     - cd dependencies
-    - copy -R org ~/.m2/
+    - mv org ~/.m2/
 
 script:
     - mvn clean test
