@@ -8,7 +8,7 @@ Micro Service architecture based on latest popular technologies
 
 Tech Stack & Legacy Issue
 =======
-- [x] spring-boot: upgrade to 2.x
+- [x] spring-boot 2.x
 - [ ] spring-boot-admin
 - [ ] swagger
 - [ ] retrofit
