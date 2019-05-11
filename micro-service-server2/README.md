@@ -1,7 +1,7 @@
-# micro-service-server2
+# Introduction
 
 # startup dependencies
-redis、cassandra、rabbitmq
+redis & cassandra & rabbitmq
 
 # cassandra script
 CREATE KEYSPACE mykeyspace WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };

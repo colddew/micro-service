@@ -6,6 +6,13 @@ Brief
 =======
 Micro Service architecture based on latest popular technologies
 
+Dev Env
+=======
+- Desktop MBP
+- Java 8
+- IDEA 2019
+- MySQL 5.7
+
 Tech Stack & Legacy Issue
 =======
 - [x] spring-boot 2.x
@@ -29,15 +36,16 @@ Tech Stack & Legacy Issue
 
 Future Plans
 =======
-- refactor project
-- upgrade all dependencies from spring boot 1.x to 2.x
+- refactor
+- upgrade all dependencies from spring-boot 1.x to 2.x
+- upgrade mysql from 5.x to 8.x with docker
+- improve mongodb, kafka, cassandra, neo4j, rabbitmq
 - auto configuration, SpringApplication loading analysis, externalized configuration, customized metrics
 - introduce RxJava, WebFlux, Reactive Stack
 - introduce exception handle, multi-level log management, transaction, jwt/openid
-- improve kafka, cassandra, neo4j, rabbitmq
-- introduce consul, elk
-- implement kotlin, javascript, groovy, lua, scala, clojure illustration
+- introduce kotlin, javascript, groovy, lua, scala, clojure
 
 Build
 =======
-mvn versions:set versions:commit -DnewVersion=`<version>`
+mvn versions:set versions:commit -DnewVersion=`<version>`  
+mvn clean -Dmaven.test.skip=true build
