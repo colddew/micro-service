@@ -1,10 +1,10 @@
 package edu.ustc.server.neo4j;
 
+import org.springframework.data.neo4j.repository.Neo4jRepository;
+
 import java.util.List;
 
-import org.springframework.data.neo4j.repository.GraphRepository;
+public interface ContactRepository extends Neo4jRepository<Contact, Long> {
 
-public interface ContactRepository extends GraphRepository<Contact> {
-	
 	List<Contact> findByUserId(Long userId);
 }

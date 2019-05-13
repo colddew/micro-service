@@ -32,7 +32,7 @@ Tech Stack & Legacy Issue
 - [ ] turbine
 - [ ] hystrix
 - [ ] zxing
-- [ ] neo4j
+- [x] neo4j
 - [ ] caffeine
 
 Future Plans

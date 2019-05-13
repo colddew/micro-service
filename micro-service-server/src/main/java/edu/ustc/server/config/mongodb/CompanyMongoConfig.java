@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @Configuration
 @EnableMongoRepositories(basePackages="edu.ustc.server.mongo.company", mongoTemplateRef="companyMongoTemplate")
-public class CompanyMongoConfiguration {
+public class CompanyMongoConfig {
 
 	@Autowired
 	@Qualifier("companyMongoProperties")
