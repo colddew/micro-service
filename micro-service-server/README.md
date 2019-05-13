@@ -8,3 +8,5 @@ add another application-dev.properties file to resources directory, and start ap
 
 ## monitor application
 download turbine-web and hystrix-dashboard war files, modify the configurations refering to turbine.config.properties under resources directory, and then start them with web servers
+
+druid monitor endpoint: `http://<server-ip>:<server-port>/druid/index.html`

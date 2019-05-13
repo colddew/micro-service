@@ -21,8 +21,8 @@ Tech Stack & Legacy Issue
 - [ ] retrofit
 - [ ] okhttp
 - [ ] logback
-- [ ] mybatis
-- [ ] druid
+- [x] mybatis
+- [x] druid
 - [ ] jedis
 - [ ] kafka
 - [ ] mongodb
