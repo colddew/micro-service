@@ -1,18 +1,19 @@
 package edu.ustc.server.service;
 
-import java.util.List;
-
+import edu.ustc.server.mongo.company.Company;
+import edu.ustc.server.mongo.company.Company.Status;
+import edu.ustc.server.mongo.company.CompanyRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import edu.ustc.server.mongo.company.Company;
-import edu.ustc.server.mongo.company.Company.Status;
-import edu.ustc.server.mongo.company.CompanyRepository;
+import java.util.List;
 
 @Service
 public class CompanyService {
@@ -36,7 +37,7 @@ public class CompanyService {
 	}
 	
 	public void delete(String id) {
-		companyRepository.delete(id);
+		companyRepository.deleteById(id);
 	}
 	
 	public void update(String id, Company companyDto) {
@@ -60,7 +61,7 @@ public class CompanyService {
 		
 		System.out.println("Count: " + companyRepository.count());
 		
-		Pageable pageable = new PageRequest(0, 2);
+		Pageable pageable = PageRequest.of(0, 2);
 		Page<Company> page = companyRepository.findAll(pageable);
 		logger.info("Page: " + page);
 		logger.info("Number: " + page.getNumber());
@@ -78,7 +79,7 @@ public class CompanyService {
 	}
 	
 	public Company findById(String id) {
-		return companyRepository.findOne(id);
+		return companyRepository.findById(id).orElse(null);
 	}
 	
 	public Company findByName(String name) {

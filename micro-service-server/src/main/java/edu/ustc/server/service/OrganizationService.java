@@ -25,7 +25,7 @@ public class OrganizationService {
 	}
 	
 	public void delete(String id) {
-		organizationRepository.delete(id);
+		organizationRepository.deleteById(id);
 	}
 	
 	public List<Organization> list() {

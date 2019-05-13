@@ -11,15 +11,15 @@ import edu.ustc.server.mongo.company.Company.Status;
 
 public interface CompanyRepository extends MongoRepository<Company, String> {
 	
-	public Company findByName(String name);
+	Company findByName(String name);
 	
-	public List<Company> findByAddress(String address);
+	List<Company> findByAddress(String address);
 	
 	@Query("{'headcount':{'$gte':?0}}")
-	public List<Company> findByHeadcount(int headcount);
+	List<Company> findByHeadcount(int headcount);
 	
 	@Query(value = "{'headcount':{'$gte':?0}}", count = true)
-	public int countByHeadcount(int headcount);
+	int countByHeadcount(int headcount);
 	
-	public Page<Company> findByHeadcountAndStatus(int headcount, Status status, Pageable pageable);
+	Page<Company> findByHeadcountAndStatus(int headcount, Status status, Pageable pageable);
 }

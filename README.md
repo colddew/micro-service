@@ -12,6 +12,7 @@ Dev Env
 - Java 8
 - IDEA 2019
 - MySQL 5.7
+- MongoDB 3.4.2
 
 Tech Stack & Legacy Issue
 =======
@@ -25,7 +26,7 @@ Tech Stack & Legacy Issue
 - [x] druid
 - [ ] jedis
 - [ ] kafka
-- [ ] mongodb
+- [x] mongodb
 - [ ] cassandra
 - [ ] shardbatis
 - [ ] turbine
@@ -39,6 +40,7 @@ Future Plans
 - refactor
 - upgrade all dependencies from spring-boot 1.x to 2.x
 - upgrade mysql from 5.x to 8.x with docker
+- upgrade mongodb from 3.x to 4.x with docker
 - improve mongodb, kafka, cassandra, neo4j, rabbitmq
 - auto configuration, SpringApplication loading analysis, externalized configuration, customized metrics
 - introduce RxJava, WebFlux, Reactive Stack
