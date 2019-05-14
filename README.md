@@ -29,8 +29,8 @@ Tech Stack & Legacy Issue
 - [x] mongodb
 - [ ] cassandra
 - [ ] shardbatis
-- [ ] turbine
-- [ ] hystrix
+- [x] turbine
+- [x] hystrix
 - [ ] zxing
 - [x] neo4j
 - [ ] caffeine

@@ -29,7 +29,7 @@ public class CassandraHealthIndicator extends AbstractHealthIndicator {
 		try {
 			session = cluster.connect();
 			ResultSet rs = session.execute("SELECT dateof(now()) FROM system.local");
-			Date date = rs.one().getDate(0);
+			Date date = rs.one().getTimestamp(0);
 			logger.info("cassandra is working, the time is ", date);
 			builder.up().withDetail("description", "cassandra is working, the time is " + date);
 		} catch (Exception e) {

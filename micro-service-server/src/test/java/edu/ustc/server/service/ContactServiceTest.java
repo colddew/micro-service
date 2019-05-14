@@ -16,6 +16,6 @@ public class ContactServiceTest {
 	
 	@Test
 	public void testAddContact() {
-		contactService.addContact("13777777777", 1001L, "13999999999", 2001L, "leave");
+//		contactService.addContact("13777777777", 1001L, "13999999999", 2001L, "leave");
 	}
 }

@@ -88,20 +88,16 @@ public class PersonService {
 			
 			for (int i = 0; i < nThreads * 10; i++) {
 				
-				pool.submit(new Runnable() {
-					
-					@Override
-					public void run() {
-						if(redisService.lockUpdateOperation("123456")) {
-							try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							logger.info("##### first time locked #####");
-						} else {
-							logger.info("##### already locked #####");
+				pool.submit(() -> {
+					if(redisService.lockUpdateOperation("123456")) {
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						}
+						logger.info("##### first time locked #####");
+					} else {
+						logger.info("##### already locked #####");
 					}
 				});
 			}
