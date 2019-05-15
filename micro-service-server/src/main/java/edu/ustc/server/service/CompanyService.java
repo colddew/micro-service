@@ -91,6 +91,7 @@ public class CompanyService {
 	}
 
 	public String mock() {
+		logger.info("mock");
 		return "mock";
 	}
 }
