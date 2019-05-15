@@ -5,7 +5,7 @@ jdk: oraclejdk8
 before_install:
     - mvn -v
     - mvn install:install-file -Dfile=./dependencies/shardbatis-2.0.0B.jar -DgroupId=org.shardbatis -DartifactId=shardbatis -Dversion=2.0.0B -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
-    - mkdir /var/www/log/micro-service-server
+    - mkdir -p /var/www/log/micro-service-server
 
 script:
     - mvn clean test
