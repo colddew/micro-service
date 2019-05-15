@@ -89,4 +89,8 @@ public class CompanyService {
 	public List<Company> findByAddress(String address) {
 		return companyRepository.findByAddress(address);
 	}
+
+	public String mock() {
+		return "mock";
+	}
 }
