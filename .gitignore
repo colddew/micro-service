@@ -47,3 +47,4 @@ settings.xml
 .gradle/
 **/build/
 **/out/
+**/logs/
