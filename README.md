@@ -18,7 +18,7 @@ Tech Stack & Legacy Issue
 =======
 - [x] spring-boot 2.x
 - [ ] spring-boot-admin
-- [ ] swagger
+- [x] swagger
 - [ ] retrofit
 - [ ] okhttp
 - [ ] logback
