@@ -36,16 +36,11 @@
         </dependency>
         
         <dependency>
-			<groupId>com.squareup.retrofit</groupId>
+			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>retrofit</artifactId>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.asynchttpclient</groupId>
-			<artifactId>async-http-client</artifactId>
-		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<finalName>micro-service-gateway</finalName>
 	</build>

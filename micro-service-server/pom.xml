@@ -92,15 +92,18 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-        
+
         <dependency>
-			<groupId>com.squareup.retrofit</groupId>
+			<groupId>com.squareup.retrofit2</groupId>
 			<artifactId>retrofit</artifactId>
 		</dependency>
-		
 		<dependency>
-			<groupId>com.squareup.okhttp</groupId>
-			<artifactId>okhttp</artifactId>
+			<groupId>com.squareup.retrofit2</groupId>
+			<artifactId>converter-scalars</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.retrofit2</groupId>
+			<artifactId>converter-gson</artifactId>
 		</dependency>
 		
 		<dependency>

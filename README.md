@@ -19,8 +19,8 @@ Tech Stack & Legacy Issue
 - [x] spring-boot 2.x
 - [ ] spring-boot-admin
 - [x] swagger
-- [ ] retrofit
-- [ ] okhttp
+- [x] retrofit 2.x
+- [x] okhttp 3.x
 - [ ] logback
 - [x] mybatis
 - [x] druid

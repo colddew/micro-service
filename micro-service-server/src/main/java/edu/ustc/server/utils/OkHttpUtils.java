@@ -1,33 +1,30 @@
 package edu.ustc.server.utils;
 
+import okhttp3.*;
+import org.springframework.util.CollectionUtils;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.util.CollectionUtils;
-
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
 public class OkHttpUtils {
-	
+
 	public static final long CONNECT_TIMEOUT = 15;
+	public static final long WRITE_TIMEOUT = 15;
 	public static final long READ_TIMEOUT = 15;
-	
+
 	public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
-	
-	private static final OkHttpClient okHttpClient = new OkHttpClient();
-	
-	private OkHttpUtils() {
-		okHttpClient.setConnectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS);
-		okHttpClient.setReadTimeout(READ_TIMEOUT, TimeUnit.SECONDS);
+
+	private static OkHttpClient okHttpClient;
+
+	static {
+		okHttpClient = new OkHttpClient.Builder()
+				.connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+				.writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+				.readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+				.build();
 	}
 	
 	public static Response execute(Request request) throws Exception {
@@ -37,15 +34,15 @@ public class OkHttpUtils {
 	public static void enqueue(Request request) {
 		
 		okHttpClient.newCall(request).enqueue(new Callback() {
-			
+
 			@Override
-			public void onResponse(Response response) throws IOException {
-				
+			public void onResponse(Call call, Response response) throws IOException {
+
 			}
-			
+
 			@Override
-			public void onFailure(Request Response, IOException exception) {
-				
+			public void onFailure(Call call, IOException e) {
+
 			}
 		});
 	}
@@ -89,9 +86,9 @@ public class OkHttpUtils {
 		}
 	}
 	
-	public static String synPostForm(String url, Map<String, String> json) throws Exception {
+	public static String synPostForm(String url, Map<String, String> map) throws Exception {
 		
-		RequestBody body = makeFormEncodingBuilder(json).build();
+		RequestBody body = makeFormBodyBuilder(map).build();
 		Request request = new Request.Builder().url(url).post(body).build();
 		
 		Response response = execute(request);
@@ -102,57 +99,57 @@ public class OkHttpUtils {
 		}
 	}
 	
-	private static FormEncodingBuilder makeFormEncodingBuilder(Map<String, String> json) {
+	private static FormBody.Builder makeFormBodyBuilder(Map<String, String> map) {
 		
-		FormEncodingBuilder formEncodingBuilder = new FormEncodingBuilder();
+		FormBody.Builder formBodyBuilder = new FormBody.Builder();
 		
-		Set<Entry<String, String>> set = json.entrySet();
+		Set<Entry<String, String>> set = map.entrySet();
 		if(!CollectionUtils.isEmpty(set)) {
 			for(Entry<String, String> entry : set) {
-				formEncodingBuilder.add(entry.getKey(), entry.getValue());
+				formBodyBuilder.add(entry.getKey(), entry.getValue());
 			}
 		}
 		
-		return formEncodingBuilder;
+		return formBodyBuilder;
 	}
 	
 //	public static void main(String[] args) throws Exception {
-//		
+//
 //		String person = OkHttpUtils.synGetString("http://localhost:9001/person/1");
 //		System.out.println(person);
-//		
+//
 //		Map map = JSON.parseObject(person, Map.class);
 //		System.out.println(map);
 //		System.out.println(JSON.toJSONString(map));
-//		
+//
 //		OkHttpUtils.asynDefaultGet("http://localhost:9001/person/1");
-//		
+//
 //		OkHttpUtils.asynGet("http://localhost:9001/person/1", new Callback() {
-//			
+//
 //			@Override
-//			public void onResponse(Response response) throws IOException {
+//			public void onResponse(Call call, Response response) throws IOException {
 //				if (response.isSuccessful()) {
 //					System.out.println(response.body().string());
 //				}
 //			}
-//			
+//
 //			@Override
-//			public void onFailure(Request request, IOException e) {
-//				
+//			public void onFailure(Call call, IOException e) {
+//
 //			}
 //		});
-//		
+//
 //		String json = "{\"pid\":23,\"name\":\"test\",\"age\":20}";
 //		System.out.println(synPostJson("http://localhost:9001/person", json));
-//		
+//
 //		@SuppressWarnings("serial")
-//		Map<String, String> json = new HashMap<String, String>() {
+//		Map<String, String> hashMap = new HashMap<String, String>() {
 //			{
 //				this.put("pid", "24");
 //				this.put("name", "test");
 //				this.put("age", "20");
 //			}
 //		};
-//		System.out.println(synPostForm("http://localhost:9001/person", json));
+//		System.out.println(synPostForm("http://localhost:9001/person", hashMap));
 //	}
 }
