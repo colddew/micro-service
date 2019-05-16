@@ -50,7 +50,7 @@ public class KafkaProducerService {
 	}
 	
 	public void sendMessagge(String message) {
-		ProducerRecord<String, String> data = new ProducerRecord<String, String>(kafkaProperties.getTopic(), message);
+		ProducerRecord<String, String> data = new ProducerRecord<>(kafkaProperties.getTopic(), message);
 		producer.send(data);
 	}
 }

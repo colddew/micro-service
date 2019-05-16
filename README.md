@@ -22,7 +22,7 @@ Tech Stack & Legacy Issue
 - [x] swagger
 - [x] retrofit
 - [x] okhttp
-- [ ] logback
+- [x] logback
 - [x] mybatis
 - [x] druid
 - [x] jedis

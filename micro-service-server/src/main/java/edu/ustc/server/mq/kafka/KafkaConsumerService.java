@@ -44,20 +44,17 @@ public class KafkaConsumerService {
 		ConsumerConfig config = new ConsumerConfig(props);
 		ConsumerConnector consumer = Consumer.createJavaConsumerConnector(config);
 		
-		Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
+		Map<String, Integer> topicCountMap = new HashMap<>();
 		topicCountMap.put(kafkaProperties.getTopic(), CONSUMER_THREAD_QUANTITY);
 		
 		Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
 		
 		List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(kafkaProperties.getTopic());
 		for (final KafkaStream stream : streams) {
-			executor.submit(new Runnable() {
-				@SuppressWarnings("unchecked")
-				public void run() {
-					ConsumerIterator<byte[], byte[]> it = stream.iterator();
-					while (it.hasNext()) {
-						System.out.println("#####" + Thread.currentThread() + ":" + new String(it.next().message()) + "#####");
-					}
+			executor.submit(() -> {
+				ConsumerIterator<byte[], byte[]> it = stream.iterator();
+				while (it.hasNext()) {
+					System.out.println("#####" + Thread.currentThread() + ":" + new String(it.next().message()) + "#####");
 				}
 			});
 		}
