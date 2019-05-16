@@ -39,8 +39,8 @@ Future Plans
 =======
 - refactor
 - upgrade all dependencies from spring-boot 1.x to 2.x
-- upgrade mysql from 5.x to 8.x with docker
-- upgrade mongodb from 3.x to 4.x with docker
+- upgrade mysql from 5.x to 8.x
+- upgrade mongodb from 3.x to 4.x
 - upgrade neo4j to 3.5.5
 - improve mongodb, kafka, cassandra, neo4j, rabbitmq
 - auto configuration, SpringApplication loading analysis, externalized configuration, customized metrics
