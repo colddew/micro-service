@@ -1,52 +1,62 @@
 package edu.ustc.server.config;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
-
+import org.springframework.util.CollectionUtils;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.Protocol;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Configuration
 public class RedisClusterConfig {
 	
-	public static final String DELIMITER_SEMICOLON = ";";
 	public static final String DELIMITER_COLON = ":";
-	
-	@Value("${redis.cluster.nodes}")
-	private String clusterNodes;
-	
-	@Value("${redis.timeout}")
-	private int timeout;
+
+	@Autowired
+	private RedisProperties redisProperties;
 	
 	@Bean
 	public JedisCluster jedisCluster() {
 		
-        if(StringUtils.isEmpty(clusterNodes)) {
+        if(CollectionUtils.isEmpty(redisProperties.getNodes())) {
 			throw new RuntimeException("load redis properties error");
 		}
         
-		return new JedisCluster(configRedisCluster(clusterNodes), timeout);
+		return new JedisCluster(getClusterNodes(), getTimeout(), getClusterConfig());
 	}
-	
-	private static Set<HostAndPort> configRedisCluster(String clusterNodes) {
-		
-		Set<HostAndPort> redisCluster = new HashSet<HostAndPort>();
-		
-		String[] nodes = clusterNodes.split(DELIMITER_SEMICOLON);
-		if(null != nodes && nodes.length > 0) {
-			for(int i=0; i<nodes.length; i++) {
-				String[] hostAndPort = nodes[i].split(DELIMITER_COLON);
-				if(null != hostAndPort && hostAndPort.length == 2) {
-					redisCluster.add(new HostAndPort(hostAndPort[0], Integer.valueOf(hostAndPort[1])));
-				}
+
+	private Set<HostAndPort> getClusterNodes() {
+
+		Set<HostAndPort> nodes = new HashSet<>();
+		for (String node : redisProperties.getNodes()) {
+
+			String[] hostAndPort = node.split(DELIMITER_COLON);
+			if(null != hostAndPort && hostAndPort.length == 2) {
+				nodes.add(new HostAndPort(hostAndPort[0], Integer.parseInt(hostAndPort[1])));
 			}
 		}
-		
-		return redisCluster;
+
+		return nodes;
+	}
+
+	private int getTimeout() {
+		return redisProperties.getTimeout() > 0 ? redisProperties.getTimeout() : Protocol.DEFAULT_TIMEOUT;
+	}
+
+	private GenericObjectPoolConfig getClusterConfig() {
+
+		GenericObjectPoolConfig config = new GenericObjectPoolConfig();
+		config.setTestWhileIdle(true);
+		config.setMinIdle(redisProperties.getMinIdle());
+		config.setMaxIdle(redisProperties.getMaxIdle());
+		config.setMaxTotal(redisProperties.getMaxTotal());
+		config.setMaxWaitMillis(redisProperties.getMaxWaitMillis());
+
+		return config;
 	}
 }

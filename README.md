@@ -13,18 +13,19 @@ Dev Env
 - IDEA 2019
 - MySQL 5.7
 - MongoDB 3.4.2
+- Redis 3.2.9
 
 Tech Stack & Legacy Issue
 =======
 - [x] spring-boot 2.x
 - [ ] spring-boot-admin
 - [x] swagger
-- [x] retrofit 2.x
-- [x] okhttp 3.x
+- [x] retrofit
+- [x] okhttp
 - [ ] logback
 - [x] mybatis
 - [x] druid
-- [ ] jedis
+- [x] jedis
 - [ ] kafka
 - [x] mongodb
 - [ ] cassandra
