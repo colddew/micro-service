@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.concurrent.TimeUnit;
 
+// high performance local cache
 @Service
 public class CaffeineCacheService {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(CaffeineCacheService.class);
-	
+
 	private static LoadingCache<String, String> caffeineCache;
 
 	/**
@@ -28,27 +29,28 @@ public class CaffeineCacheService {
 	 */
 	@PostConstruct
 	public void init() {
-		
+
 		caffeineCache = Caffeine.newBuilder()
-			.maximumSize(10_000)
-			.expireAfterWrite(60, TimeUnit.SECONDS)
-			.refreshAfterWrite(30, TimeUnit.SECONDS)
-			.build(key -> costExpensiveResources(key));
-		
+				.maximumSize(10_000)
+				.expireAfterWrite(60, TimeUnit.SECONDS)
+				.refreshAfterWrite(30, TimeUnit.SECONDS)
+				.build(key -> costExpensiveResources(key));
+
 		caffeineCache.put("k1", costExpensiveResources("k1"));
 	}
-	
+
 	@Scheduled(fixedDelay = 1000 * 5)
 	public void loadCaffeineCache() {
 		logger.info("load caffeine cache, {}", caffeineCache.asMap());
 	}
-	
+
 	@Scheduled(fixedDelay = 1000 * 15)
 	public void queryCaffeineCache() {
 		logger.info("query caffeine cache, {}", caffeineCache.get("k1"));
 	}
-	
+
 	private String costExpensiveResources(String key) {
 		return RandomStringUtils.randomAlphanumeric(10);
 	}
 }
+

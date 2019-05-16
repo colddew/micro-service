@@ -31,9 +31,9 @@ Tech Stack & Legacy Issue
 - [ ] shardbatis
 - [x] turbine
 - [x] hystrix
-- [ ] zxing
+- [x] zxing
 - [x] neo4j
-- [ ] caffeine
+- [x] caffeine
 
 Future Plans
 =======
