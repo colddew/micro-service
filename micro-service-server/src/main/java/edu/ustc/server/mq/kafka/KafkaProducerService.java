@@ -2,10 +2,7 @@ package edu.ustc.server.mq.kafka;
 
 import edu.ustc.server.config.KafkaProperties;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -21,6 +18,7 @@ public class KafkaProducerService {
 	private KafkaProperties kafkaProperties;
 	
 	private Producer<String, String> producer;
+	private Boolean isAsync = false;
 	
 	@PostConstruct
 	private void init() {
@@ -37,14 +35,35 @@ public class KafkaProducerService {
 
 	@Scheduled(cron = "0/2 * *  * * ? ")
 //	@Scheduled(fixedDelay = 1000 * 60 * 60)
-	public void sendMessagge() {
+	public void sendMessagge() throws Exception {
 		sendMessagge("hello world...");
 	}
 	
-	public void sendMessagge(String message) {
-		ProducerRecord<String, String> data = new ProducerRecord<>(kafkaProperties.getTopic(),
-				RandomStringUtils.randomAlphanumeric(10), message);
-		producer.send(data);
+	public void sendMessagge(String message) throws Exception {
+
+		String key = RandomStringUtils.randomAlphanumeric(10);
+		ProducerRecord<String, String> producerRecord = new ProducerRecord<>(kafkaProperties.getTopic(), key, message);
+
+		long startTime = System.currentTimeMillis();
+		if(isAsync) {
+
+			producer.send(producerRecord, (metadata, exception) -> {
+				long elapsedTime = System.currentTimeMillis() - startTime;
+				if (metadata != null) {
+					System.out.println(String.format("message( %s, %s ) sent to partition( %d ), offset( %d ) in %d ms",
+							key, message, metadata.partition(), metadata.offset(), elapsedTime);
+				} else {
+					exception.printStackTrace();
+				}
+			});
+		} else {
+			RecordMetadata metadata = producer.send(producerRecord).get();
+			long elapsedTime = System.currentTimeMillis() - startTime;
+			if (metadata != null) {
+				System.out.println(String.format("message( %s, %s ) sent to partition( %d ), offset( %d ) in %d ms",
+						key, message, metadata.partition(), metadata.offset(), elapsedTime);
+			}
+		}
 	}
 
 	@PreDestroy
