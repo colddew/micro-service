@@ -51,7 +51,7 @@ public class KafkaProducerService {
 				long elapsedTime = System.currentTimeMillis() - startTime;
 				if (metadata != null) {
 					System.out.println(String.format("message( %s, %s ) sent to partition( %d ), offset( %d ) in %d ms",
-							key, message, metadata.partition(), metadata.offset(), elapsedTime);
+							key, message, metadata.partition(), metadata.offset(), elapsedTime));
 				} else {
 					exception.printStackTrace();
 				}
@@ -61,7 +61,7 @@ public class KafkaProducerService {
 			long elapsedTime = System.currentTimeMillis() - startTime;
 			if (metadata != null) {
 				System.out.println(String.format("message( %s, %s ) sent to partition( %d ), offset( %d ) in %d ms",
-						key, message, metadata.partition(), metadata.offset(), elapsedTime);
+						key, message, metadata.partition(), metadata.offset(), elapsedTime));
 			}
 		}
 	}
