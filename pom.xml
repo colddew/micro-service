@@ -32,7 +32,7 @@
 		<testng.version>6.14.3</testng.version>
 		<jacoco.version>0.8.4</jacoco.version>
 	</properties>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -186,7 +186,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<build>
 		<finalName>micro-service</finalName>
 		<pluginManagement>
@@ -244,7 +244,18 @@
 			</resource>
 		</resources>
 	</build>
-	
+
+	<repositories>
+		<repository>
+			<id>shardbaits</id>
+			<name>shardbaits repository</name>
+			<url>http://shardbatis.googlecode.com/svn/trunk/repository</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<modules>
 		<module>micro-service-server</module>
 		<module>micro-service-server2</module>
