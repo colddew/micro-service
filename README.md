@@ -19,7 +19,7 @@ Dev Env
 Tech Stack & Legacy Issue
 =======
 - [x] spring-boot 2.x
-- [ ] spring-boot-admin
+- [x] spring-boot-admin
 - [x] swagger
 - [x] retrofit
 - [x] okhttp
