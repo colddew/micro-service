@@ -7,17 +7,20 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "microservice.kafka")
 public class KafkaProperties {
 
+	// product
 	private String brokerList;
 	private String topic;
 	private String keySerializer;
 	private String valueSerializer;
 	private String acks;
 	private String requestTimeout;
-	private String zookeeperConnect;
+
+	// consumer
 	private String groupId;
-	private String zookeeperSessionTimeout;
-	private String zookeeperSyncTime;
+	private String enableAutoCommit;
 	private String autoCommitInterval;
+	private String keyDeserializer;
+	private String valueDeserializer;
 
 	public String getBrokerList() {
 		return brokerList;
@@ -67,14 +70,6 @@ public class KafkaProperties {
 		this.requestTimeout = requestTimeout;
 	}
 
-	public String getZookeeperConnect() {
-		return zookeeperConnect;
-	}
-
-	public void setZookeeperConnect(String zookeeperConnect) {
-		this.zookeeperConnect = zookeeperConnect;
-	}
-
 	public String getGroupId() {
 		return groupId;
 	}
@@ -83,20 +78,12 @@ public class KafkaProperties {
 		this.groupId = groupId;
 	}
 
-	public String getZookeeperSessionTimeout() {
-		return zookeeperSessionTimeout;
+	public String getEnableAutoCommit() {
+		return enableAutoCommit;
 	}
 
-	public void setZookeeperSessionTimeout(String zookeeperSessionTimeout) {
-		this.zookeeperSessionTimeout = zookeeperSessionTimeout;
-	}
-
-	public String getZookeeperSyncTime() {
-		return zookeeperSyncTime;
-	}
-
-	public void setZookeeperSyncTime(String zookeeperSyncTime) {
-		this.zookeeperSyncTime = zookeeperSyncTime;
+	public void setEnableAutoCommit(String enableAutoCommit) {
+		this.enableAutoCommit = enableAutoCommit;
 	}
 
 	public String getAutoCommitInterval() {
@@ -105,5 +92,21 @@ public class KafkaProperties {
 
 	public void setAutoCommitInterval(String autoCommitInterval) {
 		this.autoCommitInterval = autoCommitInterval;
+	}
+
+	public String getKeyDeserializer() {
+		return keyDeserializer;
+	}
+
+	public void setKeyDeserializer(String keyDeserializer) {
+		this.keyDeserializer = keyDeserializer;
+	}
+
+	public String getValueDeserializer() {
+		return valueDeserializer;
+	}
+
+	public void setValueDeserializer(String valueDeserializer) {
+		this.valueDeserializer = valueDeserializer;
 	}
 }

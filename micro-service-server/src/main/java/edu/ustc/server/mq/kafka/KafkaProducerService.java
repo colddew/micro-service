@@ -1,10 +1,7 @@
 package edu.ustc.server.mq.kafka;
 
-import java.util.Properties;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
+import edu.ustc.server.config.KafkaProperties;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -13,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import edu.ustc.server.config.KafkaProperties;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.Properties;
 
 @Service
 public class KafkaProducerService {
@@ -35,14 +34,7 @@ public class KafkaProducerService {
 		
 		producer = new KafkaProducer<>(props);
 	}
-	
-	@PreDestroy
-	private void destory() {
-		if(null != producer) {
-			producer.close();
-		}
-	}
-	
+
 	@Scheduled(cron = "0/2 * *  * * ? ")
 //	@Scheduled(fixedDelay = 1000 * 60 * 60)
 	public void sendMessagge() {
@@ -50,7 +42,15 @@ public class KafkaProducerService {
 	}
 	
 	public void sendMessagge(String message) {
-		ProducerRecord<String, String> data = new ProducerRecord<>(kafkaProperties.getTopic(), message);
+		ProducerRecord<String, String> data = new ProducerRecord<>(kafkaProperties.getTopic(),
+				RandomStringUtils.randomAlphanumeric(10), message);
 		producer.send(data);
+	}
+
+	@PreDestroy
+	private void destory() {
+		if(null != producer) {
+			producer.close();
+		}
 	}
 }

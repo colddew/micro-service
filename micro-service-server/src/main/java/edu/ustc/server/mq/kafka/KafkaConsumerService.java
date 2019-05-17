@@ -1,23 +1,20 @@
 package edu.ustc.server.mq.kafka;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
+import edu.ustc.server.config.KafkaProperties;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import edu.ustc.server.config.KafkaProperties;
-import kafka.consumer.Consumer;
-import kafka.consumer.ConsumerConfig;
-import kafka.consumer.ConsumerIterator;
-import kafka.consumer.KafkaStream;
-import kafka.javaapi.consumer.ConsumerConnector;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class KafkaConsumerService {
@@ -26,46 +23,44 @@ public class KafkaConsumerService {
 	
 	@Autowired
 	private KafkaProperties kafkaProperties;
-	
-	@SuppressWarnings("rawtypes")
+
 	@Scheduled(cron = "0/10 * *  * * ? ")
 //	@Scheduled(fixedDelay = 1000 * 60 * 60)
-	public void consumeMessage() throws Exception {
-		
+	public void multiThreadConsumeMessage() throws Exception {
+
 		ExecutorService executor = Executors.newFixedThreadPool(CONSUMER_THREAD_QUANTITY);
-		
-		Properties props = new Properties();
-		props.put("zookeeper.connect", kafkaProperties.getZookeeperConnect());
-		props.put("group.id", kafkaProperties.getGroupId());
-		props.put("zookeeper.session.timeout.ms", kafkaProperties.getZookeeperSessionTimeout());
-		props.put("zookeeper.sync.time.ms", kafkaProperties.getZookeeperSyncTime());
-		props.put("auto.commit.interval.ms", kafkaProperties.getAutoCommitInterval());
-		
-		ConsumerConfig config = new ConsumerConfig(props);
-		ConsumerConnector consumer = Consumer.createJavaConsumerConnector(config);
-		
-		Map<String, Integer> topicCountMap = new HashMap<>();
-		topicCountMap.put(kafkaProperties.getTopic(), CONSUMER_THREAD_QUANTITY);
-		
-		Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
-		
-		List<KafkaStream<byte[], byte[]>> streams = consumerMap.get(kafkaProperties.getTopic());
-		for (final KafkaStream stream : streams) {
-			executor.submit(() -> {
-				ConsumerIterator<byte[], byte[]> it = stream.iterator();
-				while (it.hasNext()) {
-					System.out.println("#####" + Thread.currentThread() + ":" + new String(it.next().message()) + "#####");
-				}
-			});
+
+		for (int i = 0; i < CONSUMER_THREAD_QUANTITY; i++) {
+			executor.submit(() -> consumeMessage());
 		}
-		
+
 		if(null != executor) {
 			executor.shutdown();
 			executor.awaitTermination(10, TimeUnit.SECONDS);
 		}
-		
+	}
+
+	public void consumeMessage() {
+
+		Properties props = new Properties();
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBrokerList());
+		props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getGroupId());
+		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, kafkaProperties.getEnableAutoCommit());
+		props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, kafkaProperties.getAutoCommitInterval());
+		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getKeyDeserializer());
+		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, kafkaProperties.getValueDeserializer());
+
+		KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+		consumer.subscribe(Arrays.asList(kafkaProperties.getTopic()));
+
+		ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
+		for (ConsumerRecord<String, String> record : records) {
+			System.out.println(String.format("current thread: %s, [ key: %s, value: %s, partition: %d, offset: %d]",
+					Thread.currentThread().toString(), record.key(), record.value(), record.partition(), record.offset()));
+		}
+
 		if (null != consumer) {
-			consumer.shutdown();
+			consumer.close();
 		}
 	}
 }

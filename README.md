@@ -26,7 +26,7 @@ Tech Stack & Legacy Issue
 - [x] mybatis
 - [x] druid
 - [x] jedis
-- [ ] kafka
+- [x] kafka
 - [x] mongodb
 - [ ] cassandra
 - [ ] shardbatis
