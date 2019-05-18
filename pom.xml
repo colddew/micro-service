@@ -26,9 +26,7 @@
 		<jedis.version>3.0.1</jedis.version>
 		<kafka.version>2.2.0</kafka.version>
 		<cassandra.version>3.7.1</cassandra.version>
-
 		<shardbatis.version>2.0.0B</shardbatis.version>
-
 		<testng.version>6.14.3</testng.version>
 		<jacoco.version>0.8.4</jacoco.version>
 	</properties>
@@ -244,17 +242,6 @@
 			</resource>
 		</resources>
 	</build>
-
-	<repositories>
-		<repository>
-			<id>shardbaits</id>
-			<name>shardbaits repository</name>
-			<url>http://shardbatis.googlecode.com/svn/trunk/repository</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<modules>
 		<module>micro-service-server</module>

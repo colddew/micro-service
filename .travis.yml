@@ -4,7 +4,7 @@ jdk: oraclejdk8
 
 before_install:
     - mvn -v
-    - mvn install:install-file -Dfile=./repository/shardbatis-2.0.0B.jar -DgroupId=org.shardbatis -DartifactId=shardbatis -Dversion=2.0.0B -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
+    - mvn install:install-file -Dfile=./repository/org/shardbatis/shardbatis/2.0.0B/shardbatis-2.0.0B.jar -DgroupId=org.shardbatis -DartifactId=shardbatis -Dversion=2.0.0B -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
 
 script:
     - mvn clean test

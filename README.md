@@ -30,17 +30,15 @@ Tech Stack & Legacy Issue
 - [x] kafka
 - [x] mongodb
 - [x] cassandra
-- [ ] shardbatis
 - [x] turbine
 - [x] hystrix
 - [x] zxing
 - [x] neo4j
 - [x] caffeine
+- [x] shardbatis
 
 Future Plans
 =======
-- refactor
-- upgrade all dependencies from spring-boot 1.x to 2.x
 - upgrade mysql server from 5.x to 8.x
 - upgrade mongodb server from 3.x to 4.x
 - upgrade neo4j server to 3.5.5
