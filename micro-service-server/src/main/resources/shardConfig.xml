@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE shardingConfig PUBLIC "-//shardbatis.googlecode.com//DTD Shardbatis 2.0//EN"
-  "http://shardbatis.googlecode.com/dtd/shardbatis-config.dtd">
+<!DOCTYPE shardingConfig PUBLIC "-//shardbatis.googlecode.com//DTD Shardbatis 2.0//EN" "http://shardbatis.googlecode.com/dtd/shardbatis-config.dtd">
 <shardingConfig>
 	<parseList>
 		<value>edu.ustc.server.mapper.PersonMapper.insert</value>
