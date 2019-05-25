@@ -36,6 +36,7 @@ Tech Stack & Legacy Issue
 - [x] neo4j
 - [x] caffeine
 - [x] shardbatis
+- [ ] rxjava 2.x
 
 Future Plans
 =======
