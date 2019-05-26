@@ -55,7 +55,7 @@ public class RxJavaStart {
     private static void async() {
 
         Observable.create((ObservableOnSubscribe<String>) emitter -> {
-            logger.info("thread name is {}", Thread.currentThread().getName());
+            logger.info("send thread name: {}", Thread.currentThread().getName());
             emitter.onNext("async subscribe one ...");
             emitter.onNext("async subscribe two ...");
             emitter.onNext("async subscribe three ...");
@@ -63,10 +63,11 @@ public class RxJavaStart {
         })
 
         // observable thread
-//        .subscribeOn(Schedulers.newThread())
+//        .subscribeOn(Schedulers.io())
 
-        // observer thread
+        // observer thread, allow more than twice
         .observeOn(Schedulers.trampoline())
+        .observeOn(Schedulers.newThread())
 //        .observeOn(AndroidSchedulers.mainThread())
 
 //        .subscribe(s -> {
@@ -81,6 +82,7 @@ public class RxJavaStart {
 
             @Override
             public void onNext(String s) {
+                logger.info("receive thread name: {}", Thread.currentThread().getName());
                 logger.info("async next, {}", s);
             }
 
