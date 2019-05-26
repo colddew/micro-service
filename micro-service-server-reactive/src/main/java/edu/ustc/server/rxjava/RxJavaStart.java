@@ -1,8 +1,10 @@
 package edu.ustc.server.rxjava;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +13,11 @@ public class RxJavaStart {
     private static final Logger logger = LoggerFactory.getLogger(RxJavaStart.class);
 
     public static void main(String[] args) {
+//        sync();
+        async();
+    }
+
+    private static void sync() {
 
         Observable<String> observable = Observable.create(emitter -> {
             emitter.onNext("subscribe one ...");
@@ -43,5 +50,49 @@ public class RxJavaStart {
         };
 
         observable.subscribe(observer);
+    }
+
+    private static void async() {
+
+        Observable.create((ObservableOnSubscribe<String>) emitter -> {
+            logger.info("thread name is {}", Thread.currentThread().getName());
+            emitter.onNext("async subscribe one ...");
+            emitter.onNext("async subscribe two ...");
+            emitter.onNext("async subscribe three ...");
+            emitter.onComplete();
+        })
+
+        // observable thread
+//        .subscribeOn(Schedulers.newThread())
+
+        // observer thread
+        .observeOn(Schedulers.trampoline())
+//        .observeOn(AndroidSchedulers.mainThread())
+
+//        .subscribe(s -> {
+//            logger.info("accept, {}", s);
+//        })
+
+        .subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                logger.info("async subscribe, disposable: {}", d.isDisposed());
+            }
+
+            @Override
+            public void onNext(String s) {
+                logger.info("async next, {}", s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                logger.info("async error, {}", e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                logger.info("async complete");
+            }
+        });
     }
 }
