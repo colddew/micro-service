@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationListener;
 
 public class StartedEventApplicationListener implements ApplicationListener<ApplicationStartedEvent> {
 	
-	private Logger logger = LoggerFactory.getLogger(StartedEventApplicationListener.class);
+	private static final Logger logger = LoggerFactory.getLogger(StartedEventApplicationListener.class);
 	
 	@Override
 	public void onApplicationEvent(ApplicationStartedEvent event) {
