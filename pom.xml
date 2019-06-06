@@ -28,6 +28,7 @@
 		<cassandra.version>3.7.1</cassandra.version>
 		<shardbatis.version>2.0.0B</shardbatis.version>
 		<rxjava.version>2.2.8</rxjava.version>
+		<curator.version>4.2.0</curator.version>
 		<testng.version>6.14.3</testng.version>
 		<jacoco.version>0.8.4</jacoco.version>
 	</properties>
@@ -182,6 +183,12 @@
 				<groupId>io.reactivex.rxjava2</groupId>
 				<artifactId>rxjava</artifactId>
 				<version>${rxjava.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-recipes</artifactId>
+				<version>${curator.version}</version>
 			</dependency>
 			
 			<dependency>
