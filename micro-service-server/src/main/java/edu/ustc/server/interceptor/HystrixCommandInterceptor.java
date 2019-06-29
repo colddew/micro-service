@@ -66,8 +66,7 @@ public class HystrixCommandInterceptor {
 		return HystrixCommand.Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey(className + "Group"))
 				.andCommandKey(HystrixCommandKey.Factory.asKey(className + "." + methodName))
 				.andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey(className + "ThreadPool"))
-				.andCommandPropertiesDefaults(HystrixCommandProperties.Setter()
-				.withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD))
+				.andCommandPropertiesDefaults(HystrixCommandProperties.Setter().withExecutionIsolationStrategy(HystrixCommandProperties.ExecutionIsolationStrategy.THREAD))
 				.andThreadPoolPropertiesDefaults(HystrixThreadPoolProperties.Setter().withCoreSize(10));
 	}
 }
