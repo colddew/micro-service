@@ -2,7 +2,9 @@ package edu.ustc.server.rxjava;
 
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -23,7 +25,10 @@ public class RxJavaStart {
 //        async();
 //        backpressure();
 //        delayError();
-        window();
+//        window();
+//        flatMap();
+
+        parallelFlowable();
 
         // 当调用observeOn()或者subscribeOn()后代码运行在子线程，如果子线程还没来得及调用map()和subscribe()主线程就执行完了，有可能是看不到运行结果
         Thread.sleep(10000);
@@ -205,6 +210,53 @@ public class RxJavaStart {
                                         logger.info("Next, {}", aLong);
                                     }
                                 });
+                    }
+                });
+    }
+
+    private static void flatMap() {
+
+        int threadNum = Runtime.getRuntime().availableProcessors() + 1;
+        final ExecutorService executor = Executors.newFixedThreadPool(threadNum);
+        final Scheduler scheduler = Schedulers.from(executor);
+
+        Observable.range(1, 100).flatMap(new Function<Integer, ObservableSource<String>>() {
+            @Override
+            public ObservableSource<String> apply(Integer integer) throws Exception {
+                return Observable.just(integer).subscribeOn(scheduler).map(new Function<Integer, String>() {
+                    @Override
+                    public String apply(Integer integer) throws Exception {
+                        return integer.toString();
+                    }
+                });
+            }
+        }).doFinally(new Action() { // run after onError or onComplete
+            @Override
+            public void run() throws Exception {
+                executor.shutdown();
+            }
+        }).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String str) throws Exception {
+                logger.info(str);
+            }
+        });
+    }
+
+    private static void parallelFlowable() {
+
+        Flowable.range(1, 100)
+                .parallel()
+                .runOn(Schedulers.io())
+                .map(new Function<Integer, String>() {
+                    @Override
+                    public String apply(Integer integer) throws Exception {
+                        return integer.toString();
+                    }
+                }).sequential().subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String str) throws Exception {
+                        logger.info(str);
                     }
                 });
     }
