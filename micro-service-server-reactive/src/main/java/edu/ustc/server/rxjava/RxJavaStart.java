@@ -2,11 +2,16 @@ package edu.ustc.server.rxjava;
 
 import io.reactivex.*;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class RxJavaStart {
 
@@ -17,9 +22,11 @@ public class RxJavaStart {
 //        sync();
 //        async();
 //        backpressure();
+//        delayError();
+        window();
 
         // 当调用observeOn()或者subscribeOn()后代码运行在子线程，如果子线程还没来得及调用map()和subscribe()主线程就执行完了，有可能是看不到运行结果
-        Thread.sleep(3000);
+        Thread.sleep(10000);
     }
 
     private static void sync() {
@@ -133,17 +140,71 @@ public class RxJavaStart {
 
                     @Override
                     public void onNext(Integer integer) {
-                        System.out.println(integer);
+                        logger.info("next, {}", integer);
                     }
 
                     @Override
                     public void onError(Throwable t) {
-                        System.out.println(t.getMessage());
+                        logger.info(t.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-                        System.out.println("complete");
+                        logger.info("complete");
+                    }
+                });
+    }
+
+    private static void delayError() throws Exception {
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Scheduler androidMainThread = Schedulers.from(executor);
+
+        Observable<String> observable = Observable.create(subscriber -> {
+            subscriber.onNext("text");
+            Thread.sleep(1000);
+            subscriber.onError(new RuntimeException());
+        });
+
+        executor.execute(() -> {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                logger.info(e.getMessage());
+            }
+        });
+
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(androidMainThread, true)
+                .subscribe(s -> {
+                    logger.info("onNext, {}" + s);
+                }, throwable -> {
+                    logger.info(throwable.getMessage());
+                });
+
+        executor.awaitTermination(3, TimeUnit.SECONDS);
+        executor.shutdown();
+    }
+
+    private static void window() {
+
+        Observable.interval(1, TimeUnit.SECONDS)
+                .take(15) // the maximum number of items to emit
+                .window(3, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(new Consumer<Observable<Long>>() {
+                    @Override
+                    public void accept(Observable<Long> longObservable) throws Exception {
+                        logger.info("Sub Divide ...");
+                        longObservable.subscribeOn(Schedulers.io())
+                                .observeOn(Schedulers.newThread())
+                                .subscribe(new Consumer<Long>() {
+                                    @Override
+                                    public void accept(Long aLong) throws Exception {
+                                        logger.info("Next, {}", aLong);
+                                    }
+                                });
                     }
                 });
     }
